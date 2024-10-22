@@ -26,6 +26,27 @@ void Checkers::printBoard() {
 		cout << "|" << endl;
 	}
 }
+
+//char redOrBlack is either 'r' or 'b'
+bool Checkers::isValidMove(std::vector< std::vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
+	//checks to see if pieceToMove and whereToMove are within the board dimensions
+	if(!(0 < pieceToMove[0] < 8) || !(0 < pieceToMove[1] < 8) || !(0 < whereToMove[0] < 8) || !(0 < whereToMove[1] < 8)) return false;
+
+	//check to see if there is the piece at pieceToMove location
+	if(!(Board[pieceToMove[0]][pieceToMove[1]] == redOrBlack)) return false;
+
+	//checks to see that the black is moving down the board and red is moving up the board
+	if(redOrBlack == 'b') {
+		if(pieceToMove[0] > whereToMove[0]) return false;
+	}
+	else {
+		if(pieceToMove[0] < whereToMove[0]) return false;
+	}
+
+
+
+}
+
 int main() {
 
 	Checkers check;
