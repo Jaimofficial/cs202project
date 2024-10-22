@@ -43,6 +43,19 @@ bool Checkers::isValidMove(std::vector< std::vector < char > > Board, int pieceT
 		if(pieceToMove[0] < whereToMove[0]) return false;
 	}
 
+	//checks to see if there is a piece where the player wants to move
+	if(Board[whereToMove[0]][whereToMove[1]] != ' ') return false;
+
+	//the player should only be able to move one square forward diagonally ***change?***
+	if(redOrBlack == 'b') {
+		if(whereToMove[0] == (pieceToMove[0] + 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
+	}
+	else {
+		if(whereToMove[0] == (pieceToMove[0] - 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
+	}
+
+
+
 
 
 }
