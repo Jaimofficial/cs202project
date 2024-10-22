@@ -11,6 +11,7 @@
 			bool isValidMove(std::vector< std::vector < char > >, int pieceToMove[], int whereToMove[], char);
 			bool isPromoted(int); // checks if the checker can move backwards
 			void printBoard(); // print the total board
+			void play();
 		private:
 				std::vector< std::vector < char > > Board;
 	
