@@ -28,28 +28,44 @@ void Checkers::printBoard() {
 }
 
 //char redOrBlack is either 'r' or 'b'
-bool Checkers::isValidMove(std::vector< std::vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
+bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
 	//checks to see if pieceToMove and whereToMove are within the board dimensions
-	if(!(0 < pieceToMove[0] < 8) || !(0 < pieceToMove[1] < 8) || !(0 < whereToMove[0] < 8) || !(0 < whereToMove[1] < 8)) return false;
+	if(!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) || !(whereToMove[1] < 8)) return false;
 
 	//check to see if there is the piece at pieceToMove location
-	if(!(Board[pieceToMove[0]][pieceToMove[1]] == redOrBlack)) return false;
+	if((Board[pieceToMove[0]][pieceToMove[1]] == redOrBlack)) return false;
 
 	//checks to see that the black is moving down the board and red is moving up the board
 	if(redOrBlack == 'b') {
 		if(pieceToMove[0] > whereToMove[0]) return false;
 	}
-	else {
+	else if (redOrBlack == 'r') {
 		if(pieceToMove[0] < whereToMove[0]) return false;
 	}
-
-
-
+	return true;
 }
 
+void play() {
+	int turn = 0;
+	while (true) {
+		char player;
+		Checkers::printBoard();
+		if (turn % 2 == 0) { 
+			cout << "Black's "; 
+			player = 'b';
+		}
+		else {
+			cout << "Red's ";
+			player = 'r';
+		}
+		cout << "turn. " cout << endl;
+		cout << "Enter the checker you want to move: ";
+	}
+
+}
 int main() {
 
 	Checkers check;
 	check.printBoard();
-
+	
 }
