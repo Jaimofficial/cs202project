@@ -78,7 +78,7 @@ void Checkers::play() {
 
 	while (true) {
 		char player;
-		int XPieceToMove, YPieceToMove, XWhereToMove, YWhereToMove; 
+		int rowPieceToMove, colPieceToMove, rowWhereToMove, colWhereToMove; 
 		printBoard();
 		
 		if (turn % 2 == 0) { 
@@ -92,20 +92,20 @@ void Checkers::play() {
 		cout << "turn. " << endl;
 
 		cout << "Enter the checker you want to move in the format \"X Y\": ";
-		cin >> XPieceToMove >> YPieceToMove;
+		cin >> rowPieceToMove >> colPieceToMove;
 
 		//checks to see if in bounds and if there is a piece at the position the player has entered
-		while (XPieceToMove < 0 || YPieceToMove < 0 || XPieceToMove > 7 || YPieceToMove > 7 || Board[XPieceToMove][YPieceToMove] != player) {
+		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || Board[rowPieceToMove][colPieceToMove] != player) {
 			cout << "Invalid. Please try again." << endl;
 			cout << "Enter the checker you want to move in the format \"X Y\": ";
-			cin >> XPieceToMove >> YPieceToMove;
+			cin >> rowPieceToMove >> colPieceToMove;
 		} 
 
 		cout << "Enter where you want to move your piece in the format \"X Y\": ";
-		cin >> XWhereToMove >> YWhereToMove;
+		cin >> rowWhereToMove >> colWhereToMove;
 
-		int piecePosition[2] = {XPieceToMove, YPieceToMove};
-		int movePosition[2] = {XWhereToMove, YWhereToMove};
+		int piecePosition[2] = {rowPieceToMove, colPieceToMove};
+		int movePosition[2] = {rowWhereToMove, colWhereToMove};
 		while(!isValidMove(piecePosition, movePosition, player)) {
 			cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
 			cout << "Enter where you want to move your piece in the format \"X Y\": ";
@@ -114,23 +114,23 @@ void Checkers::play() {
 
 		//implementing the changes to the board after the move is confirmed to be valid
 		if(player == 'b') {
-			Board[XPieceToMove][YPieceToMove] = ' ';
+			Board[rowPieceToMove][colPieceToMove] = ' ';
 			Board[movePosition[0]][movePosition[1]] = 'b';
 
 			//if they want to take a piece we also need to remove that piece
-			if(XPieceToMove + 2 == movePosition[0]) {
-				if(YPieceToMove + 2 == movePosition[1]) Board[XPieceToMove + 1][YPieceToMove + 1] = ' ';
-				else if(YPieceToMove - 2 == movePosition[1]) Board[XPieceToMove + 1][YPieceToMove - 1] = ' ';
+			if(rowPieceToMove + 2 == movePosition[0]) {
+				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove + 1] = ' ';
+				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove - 1] = ' ';
 			}
 		}
 		else if(player == 'r') {
-			Board[XPieceToMove][YPieceToMove] = ' ';
+			Board[rowPieceToMove][colPieceToMove] = ' ';
 			Board[movePosition[0]][movePosition[1]] = 'r';
 
 			//if they want to take a piece we also need to remove that piece
-			if(XPieceToMove - 2 == movePosition[0]) {
-				if(YPieceToMove + 2 == movePosition[1]) Board[XPieceToMove - 1][YPieceToMove + 1] = ' ';
-				else if(YPieceToMove - 2 == movePosition[1]) Board[XPieceToMove - 1][YPieceToMove - 1] = ' ';
+			if(rowPieceToMove - 2 == movePosition[0]) {
+				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove + 1] = ' ';
+				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove - 1] = ' ';
 			}
 		}
 
