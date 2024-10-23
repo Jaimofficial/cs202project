@@ -26,6 +26,15 @@ void Checkers::printBoard() {
 		cout << "|" << endl;
 	}
 }
+// just a within bound checks for the row and col 
+bool Checkers::isWithinBounds(int row, int col) {
+	if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+		return true;
+	}
+	return false;
+}
+
+
 
 //**need to add logic for kings eventually**
 bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
@@ -66,6 +75,52 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 
 	return false;
 
+}
+
+// the double take function 
+bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
+	// determining the opponent's piece
+	char opponent;
+	if (redOrBlack = 'r') {
+		opponent = 'b';
+	}
+	else if (redOrBlack = 'b') {
+		opponent = 'r';
+	}
+
+	//movement direction for normal (not king pieces)
+	int direction;
+	if(redOrBlack == 'r') {
+		direction = -1; // red pieces move up the board
+	}
+	else {
+		direction = 1; //black moves down the board
+	}
+
+	// the possible capture moves for normal pieces (up left and right)
+	int possibleMoves[2][2] = {
+		{pieceRow + 2 * direction, pieceCol + 2}, // diagonal right
+		{pieceRow + 2 * direction, pieceCol - 2} // diagonal left
+	};
+
+	for (int i = 0; i < 2; i++) {
+		int targetRow = possibleMoves[i][0];
+		int targetCol = possibleMoves[i][1];
+
+		//bound checks
+		if (!isWithinBounds(targetRow, targetCol)) {
+			continue;
+		}
+
+		int pieceToMove[2] = {pieceRow, pieceCol};
+		int whereToMove[2] = {targetRow, targetCol};
+
+		if (isValidMove(pieceToMove, whereToMove, redOrBlack)) {
+
+		}
+	}
+
+	
 }
 
 void Checkers::play() {
