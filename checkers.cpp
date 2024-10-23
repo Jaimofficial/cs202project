@@ -37,7 +37,9 @@ bool Checkers::isWithinBounds(int row, int col) {
 
 
 //**need to add logic for kings eventually**
-bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
+//pieceToMove[0] is the row position of the piece the player wants to move. pieceToMove[1] is the corresponding col position. 
+//whereToMove[0] is the row position of where the player wants to move their piece. whereToMove[1] is the corresponding col position
+bool Checkers::isValidMove(int pieceToMove[], int whereToMove[], char redOrBlack) {
 	//checks to see if pieceToMove and whereToMove are within the board dimensions
 	if(!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) || !(whereToMove[1] < 8)) return false;
 
@@ -55,8 +57,9 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 	//checks to see if there is a piece where the player wants to move
 	if(Board[whereToMove[0]][whereToMove[1]] != ' ') return false;
 
-	//the player should only be able to move one square forward diagonally ***change?***
+	//the move is valid if the the piece is moved one space diagonally ***change?***
 	if(redOrBlack == 'b') {
+		//explanation fo Hein. the line below says the following: for black moving one space diagonally, the target row should be one more than the piece row and the target column should be either one more or one less than the piece row. look at a board to see the logic here
 		if(whereToMove[0] == (pieceToMove[0] + 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
 	}
 	else if (redOrBlack == 'r') {
@@ -65,7 +68,9 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 
 	//if the player wants to take a piece aka jump over a piece
 	if(redOrBlack == 'b') {
+		//explanation for Hein. for black moving two diagonally to take a piece: the target row should be 2 more than the piece row and target column should be two more than the piece column and there should be a red piece one diagonally
 		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == 'r') return true;
+		//explanation for Hein. the other case is when the target column is two less than the piece column. This is also valid
 		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == 'r') return true;
 	}
 	else if (redOrBlack == 'r') {
@@ -128,7 +133,7 @@ void Checkers::play() {
 
 	while (true) {
 		char player;
-		int XPieceToMove, YPieceToMove, XWhereToMove, YWhereToMove; 
+		int rowPieceToMove, colPieceToMove, rowWhereToMove, colWhereToMove; 
 		printBoard();
 		
 		if (turn % 2 == 0) { 
@@ -142,31 +147,49 @@ void Checkers::play() {
 		cout << "turn. " << endl;
 
 		cout << "Enter the checker you want to move in the format \"X Y\": ";
-		cin >> XPieceToMove >> YPieceToMove;
+		cin >> rowPieceToMove >> colPieceToMove;
 
 		//checks to see if in bounds and if there is a piece at the position the player has entered
-		while (XPieceToMove < 0 || YPieceToMove < 0 || XPieceToMove > 7 || YPieceToMove > 7 || Board[XPieceToMove][YPieceToMove] != player) {
+		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || Board[rowPieceToMove][colPieceToMove] != player) {
 			cout << "Invalid. Please try again." << endl;
 			cout << "Enter the checker you want to move in the format \"X Y\": ";
-			cin >> XPieceToMove >> YPieceToMove;
+			cin >> rowPieceToMove >> colPieceToMove;
 		} 
 
 		cout << "Enter where you want to move your piece in the format \"X Y\": ";
-		cin >> XWhereToMove >> YWhereToMove;
+		cin >> rowWhereToMove >> colWhereToMove;
 
-		int piecePosition[2] = {XPieceToMove, YPieceToMove};
-		int movePosition[2] = {XWhereToMove, YWhereToMove};
-		while(!isValidMove(Board, piecePosition, movePosition, player)) {
+		int piecePosition[2] = {rowPieceToMove, colPieceToMove}; 
+		int movePosition[2] = {rowWhereToMove, colWhereToMove};
+		while(!isValidMove(piecePosition, movePosition, player)) {
 			cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
 			cout << "Enter where you want to move your piece in the format \"X Y\": ";
 			cin >> movePosition[0] >> movePosition[1];
 		}
 
+		//implementing the changes to the board after the move is confirmed to be valid
+		if(player == 'b') {
+			Board[rowPieceToMove][colPieceToMove] = ' ';
+			Board[movePosition[0]][movePosition[1]] = 'b';
+
+			//if they want to take a piece we also need to remove that piece
+			if(rowPieceToMove + 2 == movePosition[0]) {
+				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove + 1] = ' ';
+				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove - 1] = ' ';
+			}
+		}
+		else if(player == 'r') {
+			Board[rowPieceToMove][colPieceToMove] = ' ';
+			Board[movePosition[0]][movePosition[1]] = 'r';
+
+			//if they want to take a piece we also need to remove that piece
+			if(rowPieceToMove - 2 == movePosition[0]) {
+				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove + 1] = ' ';
+				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove - 1] = ' ';
+			}
+		}
+
 		
-
-
-
-
 		turn++;
 	}
 
