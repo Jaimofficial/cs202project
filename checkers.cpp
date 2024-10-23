@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <stdlib.h>
 #include "checkers.h"
 
 using namespace std;
@@ -84,16 +85,8 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[], char redOrBlack
 
 // the double take function 
 bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
-	// determining the opponent's piece
-	char opponent;
-	if (redOrBlack = 'r') {
-		opponent = 'b';
-	}
-	else if (redOrBlack = 'b') {
-		opponent = 'r';
-	}
 
-	//movement direction for normal (not king pieces)
+	//movement direction for normal (not king pieces add later)
 	int direction;
 	if(redOrBlack == 'r') {
 		direction = -1; // red pieces move up the board
@@ -102,7 +95,7 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
 		direction = 1; //black moves down the board
 	}
 
-	// the possible capture moves for normal pieces (up left and right)
+	// the possible capture moves for normal pieces (up left and right no king pieces)
 	int possibleMoves[2][2] = {
 		{pieceRow + 2 * direction, pieceCol + 2}, // diagonal right
 		{pieceRow + 2 * direction, pieceCol - 2} // diagonal left
@@ -116,19 +109,21 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
 		if (!isWithinBounds(targetRow, targetCol)) {
 			continue;
 		}
-
+		//create arrays to pass to isValidMove
 		int pieceToMove[2] = {pieceRow, pieceCol};
 		int whereToMove[2] = {targetRow, targetCol};
-
+		// check if the move is valid and is a capture move
 		if (isValidMove(pieceToMove, whereToMove, redOrBlack)) {
 
+			return true;
 		}
 	}
-
-	
+	// no more additional capture move
+	return false;
 }
 
 void Checkers::play() {
+
 	int turn = 0;
 
 	while (true) {
@@ -136,6 +131,7 @@ void Checkers::play() {
 		int rowPieceToMove, colPieceToMove, rowWhereToMove, colWhereToMove; 
 		printBoard();
 		
+		// determine the current plater based on the turn number
 		if (turn % 2 == 0) { 
 			cout << "\nBlack's "; 
 			player = 'b';
@@ -156,43 +152,73 @@ void Checkers::play() {
 			cin >> rowPieceToMove >> colPieceToMove;
 		} 
 
-		cout << "Enter where you want to move your piece in the format \"X Y\": ";
-		cin >> rowWhereToMove >> colWhereToMove;
+		// change this part a lil bit - Hien
+		bool additionalCaptureAvailable = false; // bool flag to handle multiple captures
 
-		int piecePosition[2] = {rowPieceToMove, colPieceToMove}; 
-		int movePosition[2] = {rowWhereToMove, colWhereToMove};
-		while(!isValidMove(piecePosition, movePosition, player)) {
-			cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
+		do {
+			// prompt asking the player to enter the coordinates to move
 			cout << "Enter where you want to move your piece in the format \"X Y\": ";
-			cin >> movePosition[0] >> movePosition[1];
-		}
+			cin >> rowWhereToMove >> colWhereToMove;
+			int piecePosition[2] = {rowPieceToMove, colPieceToMove};
+			int movePosition[2] = {rowWhereToMove, colWhereToMove};
+			
+			// validate the move using isValidMove
+			while (!isValidMove(piecePosition, movePosition, player)) {
+				cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
+				cout << "Enter where you want to move your piece in the format \"X Y\": ";
+				cin >> movePosition[0] >> movePosition[1];
+			}
 
-		//implementing the changes to the board after the move is confirmed to be valid
-		if(player == 'b') {
-			Board[rowPieceToMove][colPieceToMove] = ' ';
-			Board[movePosition[0]][movePosition[1]] = 'b';
+			//implementing the changes to the board after the move is confirmed to be valid
+			if (player == 'b') {
+				Board[rowPieceToMove][colPieceToMove] = ' '; // move the black piece to the desired spot and delete the original
+				Board[movePosition[0]][movePosition[1]] = 'b';
 
-			//if they want to take a piece we also need to remove that piece
-			if(rowPieceToMove + 2 == movePosition[0]) {
-				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove + 1] = ' ';
-				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove + 1][colPieceToMove - 1] = ' ';
+				//if they want to take a piece we also need to remove that piece
+				if(rowPieceToMove + 2 == movePosition[0]) {
+					if(colPieceToMove + 2 == movePosition[1]) {
+						Board[rowPieceToMove + 1][colPieceToMove + 1] = ' '; // diagonal right capture
+					}
+					else if(colPieceToMove - 2 == movePosition[1]) { 
+						Board[rowPieceToMove + 1][colPieceToMove - 1] = ' '; // diagonal left capture
+					}
+				}
+			}
+			else if (player == 'r') {
+				Board[rowPieceToMove][colPieceToMove] = ' ';
+				Board[movePosition[0]][movePosition[1]] = 'r';
+
+				//if they want to take a piece we also need to remove that piece
+				if(rowPieceToMove - 2 == movePosition[0]) {
+					if(colPieceToMove + 2 == movePosition[1]) { 
+						Board[rowPieceToMove - 1][colPieceToMove + 1] = ' '; // diagonal right 
+					}
+					else if(colPieceToMove - 2 == movePosition[1]) { 
+						Board[rowPieceToMove - 1][colPieceToMove - 1] = ' '; // diagonal left
+					}
+				}
+			}
+
+			//updating the piece position to the new position
+			rowPieceToMove = movePosition[0];
+			colPieceToMove = movePosition[1];
+			
+			//checks if a capture was made 
+			if (abs(movePosition[0] - piecePosition[0]) == 2) {
+				// a capture was made now check for additional captures
+				if (canDoubleJump(rowPieceToMove, colPieceToMove, player)) {
+					printBoard();
+					cout << "You can make another capture! Continue your turn." << endl;
+					additionalCaptureAvailable = true; // continue capturing
+				}
+			}
+			else {
+				additionalCaptureAvailable = false; // no further captures
 			}
 		}
-		else if(player == 'r') {
-			Board[rowPieceToMove][colPieceToMove] = ' ';
-			Board[movePosition[0]][movePosition[1]] = 'r';
-
-			//if they want to take a piece we also need to remove that piece
-			if(rowPieceToMove - 2 == movePosition[0]) {
-				if(colPieceToMove + 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove + 1] = ' ';
-				else if(colPieceToMove - 2 == movePosition[1]) Board[rowPieceToMove - 1][colPieceToMove - 1] = ' ';
-			}
-		}
-
-		
-		turn++;
+		while (additionalCaptureAvailable); // continue move if there is additional captures available
+		turn++; // switch player
 	}
-
 }
 int main() {
 
