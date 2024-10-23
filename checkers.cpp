@@ -73,7 +73,7 @@ void Checkers::play() {
 
 	while (true) {
 		char player;
-		int XPieceToMove, YPieceToMove; 
+		int XPieceToMove, YPieceToMove, XWhereToMove, YWhereToMove; 
 		printBoard();
 		
 		if (turn % 2 == 0) { 
@@ -85,14 +85,31 @@ void Checkers::play() {
 			player = 'r';
 		}
 		cout << "turn. " << endl;
+
 		cout << "Enter the checker you want to move in the format \"X Y\": ";
 		cin >> XPieceToMove >> YPieceToMove;
 
-		while (XPieceToMove < 0 || YPieceToMove < 0 || XPieceToMove > 7 || YPieceToMove > 7) {
-			cout << "Out of bounds of board. Please try again." << endl;
+		//checks to see if in bounds and if there is a piece at the position the player has entered
+		while (XPieceToMove < 0 || YPieceToMove < 0 || XPieceToMove > 7 || YPieceToMove > 7 || Board[XPieceToMove][YPieceToMove] != player) {
+			cout << "Invalid. Please try again." << endl;
 			cout << "Enter the checker you want to move in the format \"X Y\": ";
 			cin >> XPieceToMove >> YPieceToMove;
 		} 
+
+		cout << "Enter where you want to move your piece in the format \"X Y\": ";
+		cin >> XWhereToMove >> YWhereToMove;
+
+		int piecePosition[2] = {XPieceToMove, YPieceToMove};
+		int movePosition[2] = {XWhereToMove, YWhereToMove};
+		while(!isValidMove(Board, piecePosition, movePosition, player)) {
+			cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
+			cout << "Enter where you want to move your piece in the format \"X Y\": ";
+			cin >> movePosition[0] >> movePosition[1];
+		}
+
+		
+
+
 
 
 		turn++;
