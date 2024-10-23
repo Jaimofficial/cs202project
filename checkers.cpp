@@ -68,27 +68,40 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 
 }
 
-void play() {
+void Checkers::play() {
 	int turn = 0;
+
 	while (true) {
 		char player;
-		Checkers::printBoard();
+		int XPieceToMove, YPieceToMove; 
+		printBoard();
+		
 		if (turn % 2 == 0) { 
-			cout << "Black's "; 
+			cout << "\nBlack's "; 
 			player = 'b';
 		}
 		else {
-			cout << "Red's ";
+			cout << "\nRed's ";
 			player = 'r';
 		}
-		cout << "turn. " cout << endl;
-		cout << "Enter the checker you want to move: ";
+		cout << "turn. " << endl;
+		cout << "Enter the checker you want to move in the format \"X Y\": ";
+		cin >> XPieceToMove >> YPieceToMove;
+
+		while (XPieceToMove < 0 || YPieceToMove < 0 || XPieceToMove > 7 || YPieceToMove > 7) {
+			cout << "Out of bounds of board. Please try again." << endl;
+			cout << "Enter the checker you want to move in the format \"X Y\": ";
+			cin >> XPieceToMove >> YPieceToMove;
+		} 
+
+
+		turn++;
 	}
 
 }
 int main() {
 
 	Checkers check;
-	check.printBoard();
+	check.play();
 	
 }
