@@ -12,6 +12,8 @@
 			bool isPromoted(int); // checks if the checker can move backwards
 			void printBoard(); // print the total board
 			void play();
+			bool isWithinBounds(int row, int col);
+			bool canDoubleJump(int pieceRow, int pieceCol, char redOrBlack);
 		private:
 				std::vector< std::vector < char > > Board;
 	
