@@ -27,13 +27,13 @@ void Checkers::printBoard() {
 	}
 }
 
-//char redOrBlack is either 'r' or 'b'
+//**need to add logic for kings eventually**
 bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], int whereToMove[], char redOrBlack) {
 	//checks to see if pieceToMove and whereToMove are within the board dimensions
 	if(!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) || !(whereToMove[1] < 8)) return false;
 
 	//check to see if there is the piece at pieceToMove location
-	if((Board[pieceToMove[0]][pieceToMove[1]] == redOrBlack)) return false;
+	if(Board[pieceToMove[0]][pieceToMove[1]] != redOrBlack) return false;
 
 	//checks to see that the black is moving down the board and red is moving up the board
 	if(redOrBlack == 'b') {
@@ -42,7 +42,6 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 	else if (redOrBlack == 'r') {
 		if(pieceToMove[0] < whereToMove[0]) return false;
 	}
-<<<<<<< HEAD
 
 	//checks to see if there is a piece where the player wants to move
 	if(Board[whereToMove[0]][whereToMove[1]] != ' ') return false;
@@ -51,17 +50,22 @@ bool Checkers::isValidMove(vector< vector < char > > Board, int pieceToMove[], i
 	if(redOrBlack == 'b') {
 		if(whereToMove[0] == (pieceToMove[0] + 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
 	}
-	else {
+	else if (redOrBlack == 'r') {
 		if(whereToMove[0] == (pieceToMove[0] - 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
 	}
 
+	//if the player wants to take a piece aka jump over a piece
+	if(redOrBlack == 'b') {
+		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == 'r') return true;
+		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == 'r') return true;
+	}
+	else if (redOrBlack == 'r') {
+		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == 'b') return true;
+		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == 'b') return true;
+	}
 
+	return false;
 
-
-
-=======
-	return true;
->>>>>>> 548726c361f25a23cf49c0ba1214aa7923a6630c
 }
 
 void play() {
