@@ -95,7 +95,9 @@ void Checkers::play() {
 		cin >> rowPieceToMove >> colPieceToMove;
 
 		//checks to see if in bounds and if there is a piece at the position the player has entered
-		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || Board[rowPieceToMove][colPieceToMove] != player) {
+		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || Board[rowPieceToMove][colPieceToMove] != player || cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Invalid. Please try again." << endl;
 			cout << "Enter the checker you want to move in the format \"X Y\": ";
 			cin >> rowPieceToMove >> colPieceToMove;
@@ -103,7 +105,11 @@ void Checkers::play() {
 
 		cout << "Enter where you want to move your piece in the format \"X Y\": ";
 		cin >> rowWhereToMove >> colWhereToMove;
-
+		while (cin.fail()) {
+			cout << "Invalid Coordinates." << endl;
+			cout << "Enter where you want to move your piece in the format \"X Y\": ";
+			cin >> rowPieceToMove >> colPieceToMove;
+		}
 		int piecePosition[2] = {rowPieceToMove, colPieceToMove}; 
 		int movePosition[2] = {rowWhereToMove, colWhereToMove};
 		while(!isValidMove(piecePosition, movePosition, player)) {
