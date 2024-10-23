@@ -28,8 +28,8 @@ void Checkers::printBoard() {
 }
 
 //**need to add logic for kings eventually**
-//pieceToMove[0] is the x position of the piece the player wants to move. pieceToMove[1] is the corresponding y position. 
-//whereToMove[0] is the x position of where the player wants to move their piece. whereToMove[1] is the corresponding y position
+//pieceToMove[0] is the row position of the piece the player wants to move. pieceToMove[1] is the corresponding col position. 
+//whereToMove[0] is the row position of where the player wants to move their piece. whereToMove[1] is the corresponding col position
 bool Checkers::isValidMove(int pieceToMove[], int whereToMove[], char redOrBlack) {
 	//checks to see if pieceToMove and whereToMove are within the board dimensions
 	if(!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) || !(whereToMove[1] < 8)) return false;
@@ -104,7 +104,7 @@ void Checkers::play() {
 		cout << "Enter where you want to move your piece in the format \"X Y\": ";
 		cin >> rowWhereToMove >> colWhereToMove;
 
-		int piecePosition[2] = {rowPieceToMove, colPieceToMove};
+		int piecePosition[2] = {rowPieceToMove, colPieceToMove}; 
 		int movePosition[2] = {rowWhereToMove, colWhereToMove};
 		while(!isValidMove(piecePosition, movePosition, player)) {
 			cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
