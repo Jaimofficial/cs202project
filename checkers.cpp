@@ -265,13 +265,7 @@ void Checkers::play() {
 				}
 			}
 				additionalCaptureAvailable = false; // no further captures
-<<<<<<< HEAD
 		} while (additionalCaptureAvailable); // continue move if there is additional captures available
-=======
-	
-		}
-		while (additionalCaptureAvailable); // continue move if there is additional captures available
->>>>>>> 1f6be18177981b189c96d83d0b5f0732d40e92ca
 		turn++; // switch player
 	}
 }
