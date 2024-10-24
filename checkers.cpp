@@ -210,11 +210,11 @@ void Checkers::play() {
 					printBoard();
 					cout << "You can make another capture! Continue your turn." << endl;
 					additionalCaptureAvailable = true; // continue capturing
+					continue;
 				}
 			}
-			else {
 				additionalCaptureAvailable = false; // no further captures
-			}
+	
 		}
 		while (additionalCaptureAvailable); // continue move if there is additional captures available
 		turn++; // switch player
