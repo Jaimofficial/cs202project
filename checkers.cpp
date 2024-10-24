@@ -20,6 +20,14 @@ Checkers::Checkers() {
 Checkers::~Checkers() {
 }
 void Checkers::printBoard() {
+	cout << "The board will have coordinates represented by |XY|" << endl;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			cout << "|" << i << j;
+		}
+		cout << "|" << endl;
+	}
+
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			cout << "|" << Board[i][j];
@@ -154,21 +162,21 @@ void Checkers::play() {
 
 		// change this part a lil bit - Hien
 		bool additionalCaptureAvailable = false; // bool flag to handle multiple captures
-
+		int test = 0;
 		do {
 			// prompt asking the player to enter the coordinates to move
 			cout << "Enter where you want to move your piece in the format \"X Y\": ";
 			cin >> rowWhereToMove >> colWhereToMove;
 			int piecePosition[2] = {rowPieceToMove, colPieceToMove};
 			int movePosition[2] = {rowWhereToMove, colWhereToMove};
-			
 			// validate the move using isValidMove
 			while (!isValidMove(piecePosition, movePosition, player)) {
 				cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
+				printBoard();
+				cout << "You chose the coordinates " << rowPieceToMove << " " << colPieceToMove << " " << endl;
 				cout << "Enter where you want to move your piece in the format \"X Y\": ";
 				cin >> movePosition[0] >> movePosition[1];
 			}
-
 			//implementing the changes to the board after the move is confirmed to be valid
 			if (player == 'b') {
 				Board[rowPieceToMove][colPieceToMove] = ' '; // move the black piece to the desired spot and delete the original
@@ -198,7 +206,6 @@ void Checkers::play() {
 					}
 				}
 			}
-
 			//updating the piece position to the new position
 			rowPieceToMove = movePosition[0];
 			colPieceToMove = movePosition[1];
@@ -210,13 +217,11 @@ void Checkers::play() {
 					printBoard();
 					cout << "You can make another capture! Continue your turn." << endl;
 					additionalCaptureAvailable = true; // continue capturing
+					continue;
 				}
 			}
-			else {
 				additionalCaptureAvailable = false; // no further captures
-			}
-		}
-		while (additionalCaptureAvailable); // continue move if there is additional captures available
+		} while (additionalCaptureAvailable); // continue move if there is additional captures available
 		turn++; // switch player
 	}
 }
