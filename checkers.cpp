@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
+#include <cctype>
 #include "checkers.h"
 
 using namespace std;
@@ -53,7 +54,8 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[], char redOrBlack
 	if(!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) || !(whereToMove[1] < 8)) return false;
 
 	//check to see if there is the piece at pieceToMove location
-	if(Board[pieceToMove[0]][pieceToMove[1]] != redOrBlack) return false;
+
+	if((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack) return false; 
 
 	//checks to see that the black is moving down the board and red is moving up the board
 	if(redOrBlack == 'b') {
@@ -74,19 +76,31 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[], char redOrBlack
 	else if (redOrBlack == 'r') {
 		if(whereToMove[0] == (pieceToMove[0] - 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
 	}
+	else if (redOrBlack == 'R' || redOrBlack == 'B') {
+		if(whereToMove[0] == (pieceToMove[0] + 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
+		if(whereToMove[0] == (pieceToMove[0] - 1) && ((whereToMove[1] - 1) == pieceToMove[1] || (whereToMove[1] + 1) == pieceToMove[1])) return true;
+	}
 
 	//if the player wants to take a piece aka jump over a piece
-	if(redOrBlack == 'b') {
+	if(redOrBlack != ' ' && redOrBlack != 'r') {
 		//explanation for Hein. for black moving two diagonally to take a piece: the target row should be 2 more than the piece row and target column should be two more than the piece column and there should be a red piece one diagonally
 		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == 'r') return true;
 		//explanation for Hein. the other case is when the target column is two less than the piece column. This is also valid
 		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == 'r') return true;
 	}
-	else if (redOrBlack == 'r') {
+	else if (redOrBlack != ' ' && redOrBlack != 'b') {
 		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == 'b') return true;
 		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == 'b') return true;
 	}
-
+/*
+	else if (redOrBlack == 'R' || redOrBlack == 'B') {
+		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == redOrBlack) return true;
+		if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == redOrBlack) return true;
+		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] + 2) && Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == redOrBlack) return true;
+		if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == redOrBlack) return true;
+	}*/
+	// it's 1 am and I'm lazy so i'm keeping it like this but we can optionally just do if(redOrBlack != ' ' && redOrBlack != 'b/r') and then do that for the opposite one
+	
 	return false;
 
 }
@@ -99,10 +113,13 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
 	if(redOrBlack == 'r') {
 		direction = -1; // red pieces move up the board
 	}
-	else {
+	else if (redOrBlack == 'b'){
 		direction = 1; //black moves down the board
 	}
-
+	else {
+		direction = 1;
+	}
+	// Need to include else statement for Capital letters
 	// the possible capture moves for normal pieces (up left and right no king pieces)
 	int possibleMoves[2][2] = {
 		{pieceRow + 2 * direction, pieceCol + 2}, // diagonal right
@@ -154,33 +171,37 @@ void Checkers::play() {
 		cin >> rowPieceToMove >> colPieceToMove;
 
 		//checks to see if in bounds and if there is a piece at the position the player has entered
-		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || Board[rowPieceToMove][colPieceToMove] != player) {
+		while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 || colPieceToMove > 7 || tolower(Board[rowPieceToMove][colPieceToMove]) != player) {
+//			cout << tolower(Board[rowPieceToMove][colPieceToMove]) << " " << player << endl; // debugging purposes - Jai
 			cout << "Invalid. Please try again." << endl;
 			cout << "Enter the checker you want to move in the format \"X Y\": ";
 			cin >> rowPieceToMove >> colPieceToMove;
 		} 
-
+		char piece;
 		// change this part a lil bit - Hien
 		bool additionalCaptureAvailable = false; // bool flag to handle multiple captures
-		int test = 0;
 		do {
+			piece = player;
 			// prompt asking the player to enter the coordinates to move
 			cout << "Enter where you want to move your piece in the format \"X Y\": ";
 			cin >> rowWhereToMove >> colWhereToMove;
 			int piecePosition[2] = {rowPieceToMove, colPieceToMove};
+			if (Board[rowPieceToMove][colPieceToMove] == 'R' || Board[rowPieceToMove][colPieceToMove] == 'B') {
+				piece -=32;
+			}
 			int movePosition[2] = {rowWhereToMove, colWhereToMove};
 			// validate the move using isValidMove
-			while (!isValidMove(piecePosition, movePosition, player)) {
+			while (!isValidMove(piecePosition, movePosition, piece)) {
 				cout << "Invalid move. Please try again." << endl; //should we change this error message to something less broad?
 				printBoard();
-				cout << "You chose the coordinates " << rowPieceToMove << " " << colPieceToMove << " " << endl;
+				cout << "You chose the coordinates " << rowPieceToMove << " " << colPieceToMove << "." << endl;
 				cout << "Enter where you want to move your piece in the format \"X Y\": ";
 				cin >> movePosition[0] >> movePosition[1];
 			}
 			//implementing the changes to the board after the move is confirmed to be valid
-			if (player == 'b') {
+			if (piece == 'b') {
 				Board[rowPieceToMove][colPieceToMove] = ' '; // move the black piece to the desired spot and delete the original
-				Board[movePosition[0]][movePosition[1]] = 'b';
+				Board[movePosition[0]][movePosition[1]] = piece;
 
 				//if they want to take a piece we also need to remove that piece
 				if(rowPieceToMove + 2 == movePosition[0]) {
@@ -192,9 +213,9 @@ void Checkers::play() {
 					}
 				}
 			}
-			else if (player == 'r') {
+			else if (piece == 'r') {
 				Board[rowPieceToMove][colPieceToMove] = ' ';
-				Board[movePosition[0]][movePosition[1]] = 'r';
+				Board[movePosition[0]][movePosition[1]] = piece;
 
 				//if they want to take a piece we also need to remove that piece
 				if(rowPieceToMove - 2 == movePosition[0]) {
@@ -206,10 +227,33 @@ void Checkers::play() {
 					}
 				}
 			}
+			else {
+				Board[rowPieceToMove][colPieceToMove] = ' ';
+				Board[movePosition[0]][movePosition[1]] = piece;
+				//if they want to take a piece we also need to remove that piece
+				if(rowPieceToMove - 2 == movePosition[0] || rowPieceToMove + 2 == movePosition[0]) { 
+					cout << "ENTERED LOOP" << endl;
+					bool up = true;
+					if (rowPieceToMove - 2 == movePosition[0]) {
+						up = false;
+					}
+					if(colPieceToMove + 2 == movePosition[1]) { 
+						if (up) Board[rowPieceToMove - 1][colPieceToMove + 1] = ' '; // up diagonal right capture
+						else Board[rowPieceToMove + 1][colPieceToMove + 1] = ' '; // down diagonal right capture
+					}
+					else if(colPieceToMove - 2 == movePosition[1]) { 
+						if (up) Board[rowPieceToMove - 1][colPieceToMove - 1] = ' '; // up diagonal left
+						else Board[rowPieceToMove + 1][colPieceToMove - 1] = ' '; // bottom diagonal left capture
+					}
+				}
+			}
 			//updating the piece position to the new position
 			rowPieceToMove = movePosition[0];
 			colPieceToMove = movePosition[1];
-			
+			if ((rowPieceToMove == 7 && piece == 'b') || (rowPieceToMove == 0 && piece == 'r')) {
+				Board[rowPieceToMove][colPieceToMove] -= 32;
+				cout << "The Piece has been Promoted!" << endl;
+			}
 			//checks if a capture was made 
 			if (abs(movePosition[0] - piecePosition[0]) == 2) {
 				// a capture was made now check for additional captures
