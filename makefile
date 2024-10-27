@@ -2,10 +2,18 @@ CXX=        g++
 CXXFLAGS=   -g -Wall -std=gnu++11
 SHELL=      bash
 
-all:		checkers
+SRC=checkers.cpp
+BIN=checkers
 
-checkers:    checkers.cpp
+.PHONY:	all clean format
+
+all:    $(BIN)
+
+$(BIN):    $(SRC)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	rm -f checkers
+	rm -f $(BIN)
+format:
+	clang-format -i $(SRC)
+
