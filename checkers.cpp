@@ -60,7 +60,6 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
 
   if ((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack)
     return false;
-
   // checks to see that the black is moving down the board and red is moving up
   // the board
   if (redOrBlack == 'b') {
@@ -70,7 +69,6 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
     if (pieceToMove[0] < whereToMove[0])
       return false;
   }
-
   // checks to see if there is a piece where the player wants to move
   if (Board[whereToMove[0]][whereToMove[1]] != ' ')
     return false;
@@ -86,12 +84,14 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
       return true;
-  } else if (redOrBlack == 'r') {
+  } 
+  else if (redOrBlack == 'r') {
     if (whereToMove[0] == (pieceToMove[0] - 1) &&
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
       return true;
-  } else if (redOrBlack == 'R' || redOrBlack == 'B') {
+  } 
+  else if (redOrBlack == 'R' || redOrBlack == 'B') {
     if (whereToMove[0] == (pieceToMove[0] + 1) &&
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
@@ -101,31 +101,37 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
          (whereToMove[1] + 1) == pieceToMove[1]))
       return true;
   }
-
   // if the player wants to take a piece aka jump over a piece
   if (redOrBlack != ' ' && redOrBlack != 'r') {
+    char piece = (redOrBlack == 'R') ? 'b' : 'r';
     // explanation for Hein. for black moving two diagonally to take a piece:
     // the target row should be 2 more than the piece row and target column
     // should be two more than the piece column and there should be a red piece
     // one diagonally
     if (whereToMove[0] == (pieceToMove[0] + 2) &&
         whereToMove[1] == (pieceToMove[1] + 2) &&
-        Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == 'r')
+        (Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == piece ||
+        Board[pieceToMove[0] + 1][pieceToMove[1] + 1] == piece - 32))
       return true;
     // explanation for Hein. the other case is when the target column is two
     // less than the piece column. This is also valid
     if (whereToMove[0] == (pieceToMove[0] + 2) &&
         whereToMove[1] == (pieceToMove[1] - 2) &&
-        Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == 'r')
+        (Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == piece ||
+        Board[pieceToMove[0] + 1][pieceToMove[1] - 1] == piece - 32))
       return true;
-  } else if (redOrBlack != ' ' && redOrBlack != 'b') {
+  } 
+  if (redOrBlack != ' ' && redOrBlack != 'b') {
+    char piece = (redOrBlack == 'B') ? 'r' : 'b';
     if (whereToMove[0] == (pieceToMove[0] - 2) &&
         whereToMove[1] == (pieceToMove[1] + 2) &&
-        Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == 'b')
+        (Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == piece ||
+        Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == piece - 32))
       return true;
     if (whereToMove[0] == (pieceToMove[0] - 2) &&
         whereToMove[1] == (pieceToMove[1] - 2) &&
-        Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == 'b')
+        (Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == piece ||
+        Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == piece - 32)) 
       return true;
   }
   /*
@@ -150,19 +156,23 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
 
 // the double take function
 bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
-
   // movement direction for normal (not king pieces add later)
   int direction;
+  int loop;
   if (redOrBlack == 'r') {
     direction = -1; // red pieces move up the board
+    loop = 0;
   } else if (redOrBlack == 'b') {
     direction = 1; // black moves down the board
+    loop = 0;
   } else {
-    direction = 1;
+    direction = -1;
+    loop = 1; // set so that we can check both moving up and down the board
   }
   // Need to include else statement for Capital letters
   // the possible capture moves for normal pieces (up left and right no king
   // pieces)
+  do {
   int possibleMoves[2][2] = {
       {pieceRow + 2 * direction, pieceCol + 2}, // diagonal right
       {pieceRow + 2 * direction, pieceCol - 2}  // diagonal left
@@ -185,6 +195,9 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
       return true;
     }
   }
+  if (loop > 0 && direction == -1) direction = 1; // change the direction
+                                                  // if promoted piece
+  } while (loop-- > 0);
   // no more additional capture move
   return false;
 }
@@ -288,9 +301,8 @@ void Checkers::play() {
         // if they want to take a piece we also need to remove that piece
         if (rowPieceToMove - 2 == movePosition[0] ||
             rowPieceToMove + 2 == movePosition[0]) {
-          cout << "ENTERED LOOP" << endl;
           bool up = true;
-          if (rowPieceToMove - 2 == movePosition[0]) {
+          if (rowPieceToMove + 2 == movePosition[0]) {
             up = false;
           }
           if (colPieceToMove + 2 == movePosition[1]) {
@@ -321,7 +333,7 @@ void Checkers::play() {
       // checks if a capture was made
       if (abs(movePosition[0] - piecePosition[0]) == 2) {
         // a capture was made now check for additional captures
-        if (canDoubleJump(rowPieceToMove, colPieceToMove, player)) {
+        if (canDoubleJump(rowPieceToMove, colPieceToMove, piece)) {
           printBoard();
           cout << "You can make another capture! Continue your turn." << endl;
           additionalCaptureAvailable = true; // continue capturing
