@@ -201,7 +201,23 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
-
+bool Checkers::hasWon() {
+  int bCount = 0;
+  int rCount = 0;
+  for (int i = 0; i < 64; i++) {
+    if (tolower(Board[i / 8][i % 8]) == 'r')  rCount++;
+    else if (tolower(Board[i / 8][i % 8]) == 'b') bCount++;
+  }
+  if (rCount == 0 || bCount == 0) {
+      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
+      return true;
+  }
+  for (int i = 0; i < 64; i++) {
+    if (Board[i / 8][i % 8] == 'r') {
+      `
+    }
+  }
+}
 void Checkers::play() {
 
   int turn = 0;
@@ -343,6 +359,10 @@ void Checkers::play() {
       additionalCaptureAvailable = false; // no further captures
     } while (additionalCaptureAvailable); // continue move if there is
                                           // additional captures available
+    if (hasWon()) {
+      string person = ((turn % 2 == 0) ? "Red " : "Black ");
+      cout << person << "won!" << endl;
+    }
     turn++; // switch player
   }
 }

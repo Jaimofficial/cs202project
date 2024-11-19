@@ -14,6 +14,7 @@
 			void play();
 			bool isWithinBounds(int row, int col);
 			bool canDoubleJump(int pieceRow, int pieceCol, char redOrBlack);
+			bool hasWon();
 		private:
 				std::vector< std::vector < char > > Board;
 	
