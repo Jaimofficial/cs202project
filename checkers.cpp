@@ -348,7 +348,8 @@ void Checkers::play() {
       }
       // checks if a capture was made
       if (abs(movePosition[0] - piecePosition[0]) == 2) {
-        // a capture was made now check for additional captures
+        // a capture was made now check for additional capturess
+
         if (canDoubleJump(rowPieceToMove, colPieceToMove, piece)) {
           printBoard();
           cout << "You can make another capture! Continue your turn." << endl;
