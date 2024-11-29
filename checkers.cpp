@@ -40,24 +40,21 @@ bool Checkers::isWithinBounds(int row, int col) {
   if (row >= 0 && row < 8 && col >= 0 && col < 8) {
     return true;
   }
-  return false;
+	return false;
 }
 
-//**need to add logic for kings eventually**
+
 // pieceToMove[0] is the row position of the piece the player wants to move.
 // pieceToMove[1] is the corresponding col position. whereToMove[0] is the row
 // position of where the player wants to move their piece. whereToMove[1] is the
 // corresponding col position
 bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
                            char redOrBlack) {
-  // checks to see if pieceToMove and whereToMove are within the board
-  // dimensions
-  if (!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) ||
-      !(whereToMove[1] < 8))
-    return false;
+  // checks to see if pieceToMove and whereToMove are within the board dimensions
+	if(!isWithinBounds(pieceToMove[0], pieceToMove[1]) || !isWithinBounds(whereToMove[0], whereToMove[1]))
+		return false;
 
-  // check to see if there is the piece at pieceToMove location
-
+	// check to see if there is the piece at pieceToMove location
   if ((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack)
     return false;
   // checks to see that the black is moving down the board and red is moving up
@@ -69,12 +66,12 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
     if (pieceToMove[0] < whereToMove[0])
       return false;
   }
+
   // checks to see if there is a piece where the player wants to move
   if (Board[whereToMove[0]][whereToMove[1]] != ' ')
     return false;
 
   // the move is valid if the the piece is moved one space diagonally
-  // ***change?***
   if (redOrBlack == 'b') {
     // explanation fo Hein. the line below says the following: for black moving
     // one space diagonally, the target row should be one more than the piece
@@ -214,7 +211,7 @@ bool Checkers::hasWon() {
   }
   for (int i = 0; i < 64; i++) {
     if (Board[i / 8][i % 8] == 'r') {
-      `
+      
     }
   }
 }
