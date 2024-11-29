@@ -209,14 +209,63 @@ bool Checkers::hasWon() {
     else if (tolower(Board[i / 8][i % 8]) == 'b') bCount++;
   }
   if (rCount == 0 || bCount == 0) {
+    if (rCount == 0 && bCount == 0) {
+      cout << "Tie." << endl;
+      return true;
+    }
       cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
   }
+  int piecePosition[2];
+  int moveLeft[2];
+  int moveRight[2];
   for (int i = 0; i < 64; i++) {
-    if (Board[i / 8][i % 8] == 'r') {
-      `
+    piecePosition[0] = i / 8;
+    piecePosition[1] = i % 8;
+    if (tolower(Board[i / 8][i % 8]) == 'r') {
+      char piece = Board[i / 8][i % 8]; // can get either 'R' or 'r'.
+      moveLeft[0] = (i - 8) / 8;
+      moveLeft[1] = (i - 1) % 8;
+      moveRight[0] = (i - 8) / 8;
+      moveRight[1] = (i + 1) % 8;
+      if (!(isValidMove(piecePosition, moveLeft, piece) || 
+            isValidMove(piecePosition, moveRight, piece))) {
+              moveLeft[0] = (i + 8) / 8;
+              moveLeft[1] = (i - 1) % 8;
+              moveRight[0] = (i + 8) / 8;
+              moveRight[1] = (i + 1) % 8;
+              if (piece == 'R' && (isValidMove(piecePosition, moveLeft, piece) || 
+            isValidMove(piecePosition, moveRight, piece))) continue;
+                rCount--;
+            }
     }
+    else if (tolower(Board[i / 8][i % 8]) == 'b') {
+      char piece = Board[i / 8][i % 8]; // can get either 'B' or 'b'.
+      moveLeft[0] = (i + 8) / 8;
+      moveLeft[1] = (i - 1) % 8;
+      moveRight[0] = (i + 8) / 8;
+      moveRight[1] = (i + 1) % 8;
+      if (!(isValidMove(piecePosition, moveLeft, piece) || 
+            isValidMove(piecePosition, moveRight, piece))) {
+              moveLeft[0] = (i - 8) / 8;
+              moveLeft[1] = (i - 1) % 8;
+              moveRight[0] = (i - 8) / 8;
+              moveRight[1] = (i + 1) % 8;
+              if (piece == 'B' && (isValidMove(piecePosition, moveLeft, piece) || 
+            isValidMove(piecePosition, moveRight, piece))) continue;
+                bCount--;
+            }
+    }
+    if (rCount == 0 || bCount == 0) {
+    if (rCount == 0 && bCount == 0) {
+      cout << "Tie." << endl;
+      return true;
+    }
+      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
+      return true;
   }
+  }
+  return false;
 }
 void Checkers::play() {
 
@@ -344,6 +393,7 @@ void Checkers::play() {
       if ((rowPieceToMove == 7 && piece == 'b') ||
           (rowPieceToMove == 0 && piece == 'r')) {
         Board[rowPieceToMove][colPieceToMove] -= 32;
+        piece = Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
         cout << "The Piece has been Promoted!" << endl;
       }
       // checks if a capture was made
@@ -362,7 +412,9 @@ void Checkers::play() {
                                           // additional captures available
     if (hasWon()) {
       string person = ((turn % 2 == 0) ? "Red " : "Black ");
-      cout << person << "won!" << endl;
+      cout << person << "won! Do you want to play another game? " << endl;
+      printBoard();
+      return;
     }
     turn++; // switch player
   }
