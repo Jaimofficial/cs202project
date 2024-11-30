@@ -206,14 +206,25 @@ bool Checkers::hasWon() {
     else if (tolower(Board[i / 8][i % 8]) == 'b') bCount++;
   }
   if (rCount == 0 || bCount == 0) {
+    if (rCount == 0 && bCount == 0) {
+      cout << "Tie." << endl;
+      return true;
+    }
       cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
   }
+  int piecePosition[2];
+  int moveLeft[2];
+  int moveRight[2];
   for (int i = 0; i < 64; i++) {
     if (Board[i / 8][i % 8] == 'r') {
-      
+      `
     }
+      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
+      return true;
   }
+  }
+  return false;
 }
 void Checkers::play() {
 
@@ -341,6 +352,7 @@ void Checkers::play() {
       if ((rowPieceToMove == 7 && piece == 'b') ||
           (rowPieceToMove == 0 && piece == 'r')) {
         Board[rowPieceToMove][colPieceToMove] -= 32;
+        piece = Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
         cout << "The Piece has been Promoted!" << endl;
       }
       // checks if a capture was made
@@ -359,7 +371,9 @@ void Checkers::play() {
                                           // additional captures available
     if (hasWon()) {
       string person = ((turn % 2 == 0) ? "Red " : "Black ");
-      cout << person << "won!" << endl;
+      cout << person << "won! Do you want to play another game? " << endl;
+      printBoard();
+      return;
     }
     turn++; // switch player
   }
