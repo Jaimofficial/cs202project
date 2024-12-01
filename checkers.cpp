@@ -53,12 +53,8 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
   // checks to see if pieceToMove and whereToMove are within the board
   // dimensions
   if (!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) ||
-<<<<<<< HEAD
       !(whereToMove[1] < 8) || pieceToMove[0] < 0 || pieceToMove[1] < 0 || 
       whereToMove[0] < 0 || whereToMove[1] < 0)
-=======
-      !(whereToMove[1] < 8))
->>>>>>> c66e627355e9e5bbd5942826703143e2eb42a333
     return false;
 
   // check to see if there is the piece at pieceToMove location
@@ -189,7 +185,6 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
-<<<<<<< HEAD
 bool Checkers::hasAvailableMoves(int x, int y) {
   int piecePosition[2] = {x, y};
   int moveLeft[2];
@@ -286,8 +281,6 @@ bool Checkers::hasAvailableMoves(int x, int y) {
     else return false; // for space on board
     return true;
 }
-=======
->>>>>>> c66e627355e9e5bbd5942826703143e2eb42a333
 bool Checkers::hasWon() {
   int bCount = 0;
   int rCount = 0;
@@ -303,7 +296,6 @@ bool Checkers::hasWon() {
       cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
   }
-<<<<<<< HEAD
   // int piecePosition[2];
   // int moveLeft[2];
   // int moveRight[2];
@@ -311,12 +303,6 @@ bool Checkers::hasWon() {
     // Keep for now, I could be wrong in hasAvailableMoves (tested strongly though)
     // - Jai
     /*
-=======
-  int piecePosition[2];
-  int moveLeft[2];
-  int moveRight[2];
-  for (int i = 0; i < 64; i++) {
->>>>>>> c66e627355e9e5bbd5942826703143e2eb42a333
     piecePosition[0] = i / 8;
     piecePosition[1] = i % 8;
     if (tolower(Board[i / 8][i % 8]) == 'r') {
@@ -352,13 +338,9 @@ bool Checkers::hasWon() {
             isValidMove(piecePosition, moveRight, piece))) continue;
                 bCount--;
             }
-<<<<<<< HEAD
     }*/
     if (tolower(Board[i / 8][i % 8]) == 'r' && !hasAvailableMoves(i/8, i%8)) rCount--;
     else if (tolower(Board[i / 8][i % 8]) == 'b' && !hasAvailableMoves(i/8, i%8)) bCount--;
-=======
-    }
->>>>>>> c66e627355e9e5bbd5942826703143e2eb42a333
     if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
@@ -396,12 +378,8 @@ void Checkers::play() {
     // player has entered
     while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 ||
            colPieceToMove > 7 ||
-<<<<<<< HEAD
            tolower(Board[rowPieceToMove][colPieceToMove]) != player ||
            !hasAvailableMoves(rowPieceToMove, colPieceToMove)) {
-=======
-           tolower(Board[rowPieceToMove][colPieceToMove]) != player) {
->>>>>>> c66e627355e9e5bbd5942826703143e2eb42a333
       cout << "Invalid. Please try again." << endl;
       cout << "Enter the checker you want to move in the format \"X Y\": ";
       cin >> rowPieceToMove >> colPieceToMove;
