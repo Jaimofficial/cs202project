@@ -52,12 +52,10 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
                            char redOrBlack) {
   // checks to see if pieceToMove and whereToMove are within the board
   // dimensions
-  if (!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) ||
-      !(whereToMove[1] < 8))
+  if (!isWithinBounds(pieceToMove[0], pieceToMove[1]) || !isWithinBounds(whereToMove[0], whereToMove[1]))
     return false;
 
   // check to see if there is the piece at pieceToMove location
-
   if ((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack)
     return false;
   // checks to see that the black is moving down the board and red is moving up
@@ -74,12 +72,7 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
     return false;
 
   // the move is valid if the the piece is moved one space diagonally
-  // ***change?***
   if (redOrBlack == 'b') {
-    // explanation fo Hein. the line below says the following: for black moving
-    // one space diagonally, the target row should be one more than the piece
-    // row and the target column should be either one more or one less than the
-    // piece row. look at a board to see the logic here
     if (whereToMove[0] == (pieceToMove[0] + 1) &&
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
@@ -182,10 +175,12 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
     int targetRow = possibleMoves[i][0];
     int targetCol = possibleMoves[i][1];
 
-    // bound checks
-    if (!isWithinBounds(targetRow, targetCol)) {
-      continue;
-    }
+    //I'm commenting this out because isValidMove (shown below) checks for bounds already - Tom
+    //// bound checks
+    //if (!isWithinBounds(targetRow, targetCol)) {
+    //  continue;
+    //}
+
     // create arrays to pass to isValidMove
     int pieceToMove[2] = {pieceRow, pieceCol};
     int whereToMove[2] = {targetRow, targetCol};
@@ -201,6 +196,7 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
+
 bool Checkers::hasWon() {
   int bCount = 0;
   int rCount = 0;
