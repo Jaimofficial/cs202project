@@ -57,6 +57,7 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
     return false;
 
   // check to see if there is the piece at pieceToMove location
+
   if ((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack)
     return false;
   // checks to see that the black is moving down the board and red is moving up
@@ -73,7 +74,12 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
     return false;
 
   // the move is valid if the the piece is moved one space diagonally
+  // ***change?***
   if (redOrBlack == 'b') {
+    // explanation fo Hein. the line below says the following: for black moving
+    // one space diagonally, the target row should be one more than the piece
+    // row and the target column should be either one more or one less than the
+    // piece row. look at a board to see the logic here
     if (whereToMove[0] == (pieceToMove[0] + 1) &&
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
@@ -128,6 +134,23 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
         Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == piece - 32)) 
       return true;
   }
+  /*
+          else if (redOrBlack == 'R' || redOrBlack == 'B') {
+                  if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] ==
+     (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] ==
+     redOrBlack) return true; if(whereToMove[0] == (pieceToMove[0] + 2) &&
+     whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] +
+     1][pieceToMove[1] - 1] == redOrBlack) return true; if(whereToMove[0] ==
+     (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] + 2) &&
+     Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == redOrBlack) return true;
+                  if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] ==
+     (pieceToMove[1] - 2) && Board[pieceToMove[0] - 1][pieceToMove[1] - 1] ==
+     redOrBlack) return true;
+          }*/
+  // it's 1 am and I'm lazy so i'm keeping it like this but we can optionally
+  // just do if(redOrBlack != ' ' && redOrBlack != 'b/r') and then do that for
+  // the opposite one
+
   return false;
 }
 
@@ -159,12 +182,10 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
     int targetRow = possibleMoves[i][0];
     int targetCol = possibleMoves[i][1];
 
-    //I'm commenting this out because isValidMove (shown below) checks for bounds already - Tom
-    //// bound checks
-    //if (!isWithinBounds(targetRow, targetCol)) {
-    //  continue;
-    //}
-
+    // bound checks
+    if (!isWithinBounds(targetRow, targetCol)) {
+      continue;
+    }
     // create arrays to pass to isValidMove
     int pieceToMove[2] = {pieceRow, pieceCol};
     int whereToMove[2] = {targetRow, targetCol};
@@ -195,13 +216,10 @@ bool Checkers::hasWon() {
       cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
   }
-  // int piecePosition[2];
-  // int moveLeft[2];
-  // int moveRight[2];
+  int piecePosition[2];
+  int moveLeft[2];
+  int moveRight[2];
   for (int i = 0; i < 64; i++) {
-    // Keep for now, I could be wrong in hasAvailableMoves (tested strongly though)
-    // - Jai
-    /*
     piecePosition[0] = i / 8;
     piecePosition[1] = i % 8;
     if (tolower(Board[i / 8][i % 8]) == 'r') {
@@ -237,9 +255,7 @@ bool Checkers::hasWon() {
             isValidMove(piecePosition, moveRight, piece))) continue;
                 bCount--;
             }
-    }*/
-    if (tolower(Board[i / 8][i % 8]) == 'r' && !hasAvailableMoves(i/8, i%8)) rCount--;
-    else if (tolower(Board[i / 8][i % 8]) == 'b' && !hasAvailableMoves(i/8, i%8)) bCount--;
+    }
     if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
@@ -277,8 +293,10 @@ void Checkers::play() {
     // player has entered
     while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 ||
            colPieceToMove > 7 ||
-           tolower(Board[rowPieceToMove][colPieceToMove]) != player ||
-           !hasAvailableMoves(rowPieceToMove, colPieceToMove)) {
+           tolower(Board[rowPieceToMove][colPieceToMove]) != player) {
+      //			cout <<
+      //tolower(Board[rowPieceToMove][colPieceToMove]) << " " << player << endl;
+      //// debugging purposes - Jai
       cout << "Invalid. Please try again." << endl;
       cout << "Enter the checker you want to move in the format \"X Y\": ";
       cin >> rowPieceToMove >> colPieceToMove;
