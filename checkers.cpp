@@ -55,7 +55,6 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
   if (!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) ||
       !(whereToMove[1] < 8) || pieceToMove[0] < 0 || pieceToMove[1] < 0 || 
       whereToMove[0] < 0 || whereToMove[1] < 0)
-      !(whereToMove[1] < 8))
     return false;
 
   // check to see if there is the piece at pieceToMove location
@@ -304,10 +303,6 @@ bool Checkers::hasWon() {
     // Keep for now, I could be wrong in hasAvailableMoves (tested strongly though)
     // - Jai
     /*
-  int piecePosition[2];
-  int moveLeft[2];
-  int moveRight[2];
-  for (int i = 0; i < 64; i++) {
     piecePosition[0] = i / 8;
     piecePosition[1] = i % 8;
     if (tolower(Board[i / 8][i % 8]) == 'r') {
@@ -346,7 +341,6 @@ bool Checkers::hasWon() {
     }*/
     if (tolower(Board[i / 8][i % 8]) == 'r' && !hasAvailableMoves(i/8, i%8)) rCount--;
     else if (tolower(Board[i / 8][i % 8]) == 'b' && !hasAvailableMoves(i/8, i%8)) bCount--;
-    }
     if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
@@ -386,7 +380,6 @@ void Checkers::play() {
            colPieceToMove > 7 ||
            tolower(Board[rowPieceToMove][colPieceToMove]) != player ||
            !hasAvailableMoves(rowPieceToMove, colPieceToMove)) {
-           tolower(Board[rowPieceToMove][colPieceToMove]) != player) {
       cout << "Invalid. Please try again." << endl;
       cout << "Enter the checker you want to move in the format \"X Y\": ";
       cin >> rowPieceToMove >> colPieceToMove;
