@@ -6,16 +6,23 @@
 using namespace std;
 
 Checkers::Checkers() {
-	Board.resize(8);
-	for (int rows = 0; rows < 8; rows++) {
-		Board[rows].resize(8, ' '); // used to create an 8x8 board
-	}
-	for (int i = 0; i < 3; i++) { 
-		for (int j = 0; j < 8; j++) {
-			Board[i][(j + i) % 8] = 'b';
-			Board[7 - i][(j++ + i + 1) % 8] = 'r';
-		}
-	} // places red and black on the board and staggers them accordingly.
+    Board.resize(8, vector<char>(8, ' '));
+    // Place black pieces
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 8; j++) {
+            if ((i + j) % 2 == 1) {
+                Board[i][j] = 'b';
+            }
+        }
+    }
+    // Place red pieces
+    for (int i = 5; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if ((i + j) % 2 == 1) {
+                Board[i][j] = 'r';
+            }
+        }
+    }
 }
 Checkers::~Checkers() {
 }
@@ -31,6 +38,64 @@ void Checkers::printBoard() {
 bool Checkers::isWithinBounds(int row, int col) {
 	if (row >= 0 && row < 8 && col >= 0 && col < 8) {
 		return true;
+	}
+	return false;
+}
+
+// function to count pieces
+int Checkers::countPieces(char player) {
+	int count = 0;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (Board[i][j] == player) count++;
+		}
+	}
+	return count;
+}
+// resetting the game
+void Checkers::resetBoard() {
+	// clearing the board
+	for (int i = 0; i < 8; i++) {
+		fill(Board[i].begin(), Board[i].end(), ' ');
+	}
+
+	// place the pieces as in the constructor 
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 8; j++) {
+			if ((i + j) % 2 == 1) {
+				Board[i][j] = 'b';
+				Board[7 - i][j] = 'r';
+			}
+		}
+	}
+}
+
+// checks for available moves
+bool Checkers::hasAvailableMove(char player) {
+	int direction = (player == 'r') ? -1 : 1;
+
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (Board[i][j] == player) {
+				int piecePosition[2] = {i, j};
+				// possible moves (one step diagonally or capture moves)
+				int possibleMoves[4][2] = {
+					{i + direction, j + 1},
+					{i + direction, j - 1},
+					{i + 2 * direction, j + 2},
+					{i + 2 * direction, j - 2}
+				};
+
+				for (int k = 0; k < 4; k++) {
+					int newRow = possibleMoves[k][0];
+					int newCol = possibleMoves[k][1];
+					if (isWithinBounds(newRow, newCol)) {
+						int whereToMove[2] = {newRow, newCol};
+						if (isValidMove(piecePosition, whereToMove, player)) return true;
+					}
+				}
+			}
+		}
 	}
 	return false;
 }
@@ -114,7 +179,6 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
 		int whereToMove[2] = {targetRow, targetCol};
 		// check if the move is valid and is a capture move
 		if (isValidMove(pieceToMove, whereToMove, redOrBlack)) {
-
 			return true;
 		}
 	}
@@ -141,6 +205,31 @@ void Checkers::play() {
 			player = 'r';
 		}
 		cout << "turn. " << endl;
+
+		// Check if the current player has any available moves
+		if (!hasAvailableMove(player)) {
+			cout << "Player " << player << " has no available moves." << endl;
+			// Check if the opponent also has no moves (tie)
+			char opponent = (player == 'b') ? 'r' : 'B';
+			if (!hasAvailableMove(opponent)) {
+				cout << "The game is a tie!" << endl;
+			}
+			else {
+				cout << "Player " << opponent << " wins!" << endl;
+			}
+			// Prompt to start a new game
+			char choice;
+			cout << "Do you want to start a new game? (y/n): ";
+			cin >> choice;
+			if (choice == 'y') {
+				resetBoard();
+				turn = 0;
+				continue;
+			}
+			else {
+				break;
+			}
+		}
 
 		cout << "Enter the checker you want to move in the format \"X Y\": ";
 		cin >> rowPieceToMove >> colPieceToMove;
@@ -217,7 +306,46 @@ void Checkers::play() {
 			}
 		}
 		while (additionalCaptureAvailable); // continue move if there is additional captures available
-		turn++; // switch player
+
+		// checks if the opponent has any pieces or available moves 
+		char opponent = (player == 'b') ? 'r' : 'b';
+
+		if (countPieces(opponent) == 0 || !hasAvailableMove(opponent)) {
+			printBoard();
+			cout << "Player " << player << " wins!" << endl;
+			// prompting player to whether they want to start a new game
+			char choice;
+			cout << "Do you want to start a new game? (y/n): ";
+			cin >> choice;
+			if (choice == 'y') {
+				resetBoard();
+				turn = 0;
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+
+		// check for tie condition
+		if (!hasAvailableMove('b') && !hasAvailableMove('r')) {
+			printBoard();
+			cout << "The game is a tie!" << endl;
+			// new game prompt
+			char choice;
+			cout << "Do you want to start a new game? (y/n): ";
+			cin >> choice;
+			if (choice == 'y') {
+				resetBoard();
+				turn = 0;
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+		turn++; // switch to the next player
+		
 	}
 }
 int main() {
