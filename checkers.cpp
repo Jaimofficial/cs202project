@@ -134,23 +134,6 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
         Board[pieceToMove[0] - 1][pieceToMove[1] - 1] == piece - 32)) 
       return true;
   }
-  /*
-          else if (redOrBlack == 'R' || redOrBlack == 'B') {
-                  if(whereToMove[0] == (pieceToMove[0] + 2) && whereToMove[1] ==
-     (pieceToMove[1] + 2) && Board[pieceToMove[0] + 1][pieceToMove[1] + 1] ==
-     redOrBlack) return true; if(whereToMove[0] == (pieceToMove[0] + 2) &&
-     whereToMove[1] == (pieceToMove[1] - 2) && Board[pieceToMove[0] +
-     1][pieceToMove[1] - 1] == redOrBlack) return true; if(whereToMove[0] ==
-     (pieceToMove[0] - 2) && whereToMove[1] == (pieceToMove[1] + 2) &&
-     Board[pieceToMove[0] - 1][pieceToMove[1] + 1] == redOrBlack) return true;
-                  if(whereToMove[0] == (pieceToMove[0] - 2) && whereToMove[1] ==
-     (pieceToMove[1] - 2) && Board[pieceToMove[0] - 1][pieceToMove[1] - 1] ==
-     redOrBlack) return true;
-          }*/
-  // it's 1 am and I'm lazy so i'm keeping it like this but we can optionally
-  // just do if(redOrBlack != ' ' && redOrBlack != 'b/r') and then do that for
-  // the opposite one
-
   return false;
 }
 
@@ -201,76 +184,6 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
-
-// checks for available moves
-bool Checkers::hasAvailableMove(char player, int x, int y) {
-	int direction = (player == 'r') ? -1 : 1;
-
-	// for (int i = 0; i < 8; i++) {
-	// 	for (int j = 0; j < 8; j++) {
-	// 		if (Board[i][j] == player) {
-	// 			int piecePosition[2] = {i, j};
-	// 			// possible moves (one step diagonally or capture moves)
-	// 			int possibleMoves[4][2] = {
-	// 				{i + direction, j + 1},
-	// 				{i + direction, j - 1},
-	// 				{i + 2 * direction, j + 2},
-	// 				{i + 2 * direction, j - 2}
-	// 			};
-
-	// 			for (int k = 0; k < 4; k++) {
-	// 				int newRow = possibleMoves[k][0];
-	// 				int newCol = possibleMoves[k][1];
-	// 				if (isWithinBounds(newRow, newCol)) {
-	// 					int whereToMove[2] = {newRow, newCol};
-	// 					if (isValidMove(piecePosition, whereToMove, player)) return true;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
-  int piecePosition[2] = {x, y};
-  int moveLeft[2];
-  int moveRight[2];
-
-  if (tolower(Board[x][y]) == 'r') {
-      char piece = Board[x][y]; // can get either 'R' or 'r'.
-      moveLeft[0] = (x - 1);
-      moveLeft[1] = (y - 1);
-      moveRight[0] = (x - 1);
-      moveRight[1] = (y + 1);
-      if (!(isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) {
-              moveLeft[0] = (x + 1);
-              moveLeft[1] = (y - 1);
-              moveRight[0] = (x + 1);
-              moveRight[1] = (y + 1);
-              if (piece == 'R' && (isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) return true;
-                return false;
-            }
-    }
-    else if (tolower(Board[x][y]) == 'b') {
-      char piece = Board[x][y]; // can get either 'B' or 'b'.
-      moveLeft[0] = (x + 1);
-      moveLeft[1] = (y - 1);
-      moveRight[0] = (x + 1);
-      moveRight[1] = (y + 1);
-      if (!(isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) {
-              moveLeft[0] = (x - 1);
-              moveLeft[1] = (y - 1);
-              moveRight[0] = (x - 1);
-              moveRight[1] = (y + 1);
-              if (piece == 'B' && (isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) return true;
-                return false;
-            }
-    }
-    else return false; // for the empty board piece
-	return true;
-}
-
 bool Checkers::hasWon() {
   int bCount = 0;
   int rCount = 0;
@@ -364,9 +277,6 @@ void Checkers::play() {
     while (rowPieceToMove < 0 || colPieceToMove < 0 || rowPieceToMove > 7 ||
            colPieceToMove > 7 ||
            tolower(Board[rowPieceToMove][colPieceToMove]) != player) {
-      //			cout <<
-      //tolower(Board[rowPieceToMove][colPieceToMove]) << " " << player << endl;
-      //// debugging purposes - Jai
       cout << "Invalid. Please try again." << endl;
       cout << "Enter the checker you want to move in the format \"X Y\": ";
       cin >> rowPieceToMove >> colPieceToMove;
