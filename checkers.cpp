@@ -180,6 +180,111 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
+bool Checkers::hasAvailableMoves(int x, int y) {
+  int piecePosition[2] = {x, y};
+  int moveLeft[2];
+  int moveRight[2];
+
+  if (tolower(Board[x][y]) == 'r') {
+    char piece = Board[x][y]; // can get either 'R' or 'r'.
+    moveLeft[0] = x - 1;
+    moveLeft[1] = y - 1;
+    moveRight[0] = x - 1;
+    moveRight[1] = y + 1; // possible movements for r (moving up)
+    if (!(isValidMove(piecePosition, moveLeft, piece) ||
+          isValidMove(piecePosition, moveRight, piece))) {
+      if (moveLeft[0] >= 0 && moveLeft[1] >= 0 &&
+          tolower(Board[moveLeft[0]][moveLeft[1]]) == 'b') {
+        moveLeft[0] = x - 2; // signifying a left jump
+        moveLeft[1] = y - 2;
+        if (isValidMove(piecePosition, moveLeft, piece))
+          return true;
+      }
+      if (moveRight[0] >= 0 && moveRight[1] < 8 &&
+          tolower(Board[moveRight[0]][moveRight[1]]) == 'b') {
+        moveRight[0] = x - 2;
+        moveRight[1] = y + 2;
+        if (isValidMove(piecePosition, moveRight, piece))
+          return true;
+      }
+      moveLeft[0] = x + 1;
+      moveLeft[1] = y - 1;
+      moveRight[0] = x + 1;
+      moveRight[1] = y + 1;
+      // need to check promoted movements in the opposite direction
+      if (piece == 'R') {
+        if ((isValidMove(piecePosition, moveLeft, piece) || // left jump
+             isValidMove(piecePosition, moveRight, piece)))
+          return true;
+        if (moveLeft[0] < 8 && moveLeft[1] >= 0 &&
+            tolower(Board[moveLeft[0]][moveRight[1]]) == 'b') {
+          moveLeft[0] = x + 2;
+          moveLeft[1] = y - 2;
+          if (isValidMove(piecePosition, moveLeft, piece))
+            return true;
+        }
+        if (moveRight[0] < 8 && moveRight[1] < 8 && // right jump
+            tolower(Board[moveRight[0]][moveRight[1]]) == 'b') {
+          moveRight[0] = x + 2;
+          moveRight[1] = y + 2;
+          if (isValidMove(piecePosition, moveRight, piece))
+            return true;
+        }
+      }
+      return false;
+    }
+  } else if (tolower(Board[x][y]) == 'b') {
+    char piece = Board[x][y]; // can get either 'B' or 'b'.
+    moveLeft[0] = x + 1;
+    moveLeft[1] = y - 1;
+    moveRight[0] = x + 1;
+    moveRight[1] = y + 1; // possible movements for b (going down)
+    if (!(isValidMove(piecePosition, moveLeft, piece) ||
+          isValidMove(piecePosition, moveRight, piece))) {
+      if (moveLeft[0] < 8 && moveLeft[1] >= 0 &&
+          tolower(Board[moveLeft[0]][moveLeft[1]]) == 'r') { // checks for jumps
+        moveLeft[0] = x + 2;
+        moveLeft[1] = y - 2;
+        if (isValidMove(piecePosition, moveLeft, piece))
+          return true;
+      }
+      if (moveRight[0] < 8 && moveRight[1] < 8 &&
+          tolower(Board[moveRight[0]][moveRight[1]]) == 'r') { // right jump
+        moveRight[0] = x + 2;
+        moveRight[1] = y + 2;
+        if (isValidMove(piecePosition, moveRight, piece))
+          return true;
+      }
+      moveLeft[0] = x - 1;
+      moveLeft[1] = y - 1;
+      moveRight[0] = x - 1;
+      moveRight[1] = y + 1;
+      if (piece == 'B') { // need to check if the piece is promoted, so have to
+                          // see other side's possible moves
+        if ((isValidMove(piecePosition, moveLeft, piece) ||
+             isValidMove(piecePosition, moveRight, piece)))
+          return true;
+        if (moveLeft[0] >= 0 && moveLeft[1] >= 0 &&
+            tolower(Board[moveLeft[0]][moveRight[1]]) == 'r') {
+          moveLeft[0] = x - 2;
+          moveLeft[1] = y - 2;
+          if (isValidMove(piecePosition, moveLeft, piece))
+            return true;
+        }
+        if (moveRight[0] >= 0 && moveRight[1] < 8 &&
+            tolower(Board[moveRight[0]][moveRight[1]]) == 'r') {
+          moveRight[0] = x - 2;
+          moveRight[1] = y + 2;
+          if (isValidMove(piecePosition, moveRight, piece))
+            return true;
+        }
+      }
+      return false;
+    }
+  } else
+    return false; // for space on board
+  return true;
+}
 bool Checkers::hasWon() {
   int bCount = 0;
   int rCount = 0;
