@@ -6,6 +6,10 @@
 
 using namespace std;
 
+// global variables to keep track of wins
+int rWins = 0;
+int bWins = 0;
+
 Checkers::Checkers() {
   Board.resize(8);
   for (int rows = 0; rows < 8; rows++) {
@@ -291,10 +295,20 @@ bool Checkers::hasWon() {
   if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
+      rWins++;
+      bWins++;
       return true;
     }
-      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
+    else if (rCount > bCount) {
+      rWins++;
+      cout << "Red won!" << endl;
       return true;
+    }
+    else if (bCount > rCount) {
+      bWins++;
+      cout << "Black won!" << endl;
+      return true;
+    }
   }
   // int piecePosition[2];
   // int moveLeft[2];
@@ -344,14 +358,47 @@ bool Checkers::hasWon() {
     if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
+      rWins++;
+      bWins++;
       return true;
     }
-      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
+    else if (rCount > bCount) {
+      rWins++;
+      cout << "Red won!" << endl;
       return true;
+    }
+    else if (bCount > rCount) {
+      bWins++;
+      cout << "Black won!" << endl;
+      return true;
+    }
   }
-  }
+}
   return false;
 }
+void Checkers::resetBoard() {
+  // clearing the board
+  for (int i = 0; i < 8; i++) {
+    fill(Board[i].begin(), Board[i].end(), ' ');
+  }
+  // Place black pieces
+  for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 8; j++) {
+          if ((i + j) % 2 == 1) {
+              Board[i][j] = 'b';
+          }
+      }
+  }
+  // Place red pieces
+  for (int i = 5; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+          if ((i + j) % 2 == 1) {
+              Board[i][j] = 'r';
+          }
+      }
+  }
+}
+
 void Checkers::play() {
 
   int turn = 0;
@@ -493,11 +540,32 @@ void Checkers::play() {
       additionalCaptureAvailable = false; // no further captures
     } while (additionalCaptureAvailable); // continue move if there is
                                           // additional captures available
+
     if (hasWon()) {
-      string person = ((turn % 2 == 0) ? "Red " : "Black ");
-      cout << person << "won! Do you want to play another game? " << endl;
+      
       printBoard();
-      return;
+      // Prompt to start a new game
+      char choice;
+      while (true) {
+        cout << "Do you want to start a new game? (y/n): ";
+        cin >> choice;
+        choice = tolower(choice); // Convert to lowercase to handle uppercase inputs
+        if (choice == 'y') {
+          resetBoard();
+          turn = 0;
+          break; // exit the input loop and continue game loop
+        }
+        else if (choice == 'n') {
+          // display the total number of wins before exiting
+          cout << "\nTotal Wins:" << endl;
+          cout << "Red wins:" << rWins << endl;
+          cout << "Black wins:" << bWins << endl;
+          return; // exit the play() method (ending the game)
+        }
+        else {
+          cout << "Invalid input. Please enter 'y' for yes or 'n' for no." << endl;
+        }
+      }
     }
     turn++; // switch player
   }
