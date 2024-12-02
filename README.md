@@ -1,8 +1,42 @@
-# CS202 Capstone Project
-**Project with Hien, Tom, and Jai**
+# Checkers Game in C++
 
-Checkers game
+## Table of Contens
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Gameplay](#gameplay)
+- [Contributing](#contributing)
+- [Authors](#authors)
 
+## Introduction
+
+Welcome to the **Checkers Game in C++**, a console-based application developed as the final capstone project for **CS202 Data Structures and Algorithms 1**. This project showcases the implementation of fundamental data structures and algorithms to create a fully functional Checkers game, emphasizing clean code, efficient algorithms, and user-friendly interactions.
+
+## Features
+
+## Installation 
+
+
+## Prerequisites
+
+### Steps
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/checkers-game-cpp.git
+
+## Usage
+
+## Gameplay
+
+## Authors 
+
+* Jai Mehta
+* Developer & Project Lead
+[github](puturlinkhere)
+
+* Hien Vo
+* 
 HOW TO PLAY:
 
 Navigate terminal to directory “cs202project”
