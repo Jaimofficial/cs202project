@@ -64,9 +64,7 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
                            char redOrBlack) {
   // checks to see if pieceToMove and whereToMove are within the board
   // dimensions
-  if (!(pieceToMove[0] < 8) || !(pieceToMove[1] < 8) || !(whereToMove[0] < 8) ||
-      !(whereToMove[1] < 8) || pieceToMove[0] < 0 || pieceToMove[1] < 0 ||
-      whereToMove[0] < 0 || whereToMove[1] < 0)
+  if (!isWithinBounds(pieceToMove[0], pieceToMove[1]) || !isWithinBounds(whereToMove[0], whereToMove[1]))
     return false;
 
   // check to see if there is the piece at pieceToMove location
