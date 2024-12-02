@@ -203,7 +203,7 @@ bool Checkers::hasAvailableMoves(int x, int y) {
           isValidMove(piecePosition, moveRight, piece))) {
       if (moveLeft[0] >= 0 && moveLeft[1] >= 0 &&
           tolower(Board[moveLeft[0]][moveLeft[1]]) == 'b') {
-        moveLeft[0] = x - 2;
+        moveLeft[0] = x - 2; // signifying a left jump
         moveLeft[1] = y - 2;
         if (isValidMove(piecePosition, moveLeft, piece))
           return true;
