@@ -243,7 +243,7 @@ bool Checkers::hasAvailableMoves(int x, int y) {
       if (!(isValidMove(piecePosition, moveLeft, piece) || 
             isValidMove(piecePosition, moveRight, piece))) {
               if (moveLeft[0] < 8 && moveLeft[1] >= 0 && 
-                  tolower(Board[moveLeft[0]][moveRight[1]]) == 'r') { // checks for jumps
+                  tolower(Board[moveLeft[0]][moveLeft[1]]) == 'r') { // checks for jumps
                   moveLeft[0] = x + 2;
                   moveLeft[1] = y - 2;
                 if (isValidMove(piecePosition, moveLeft, piece)) return true;
