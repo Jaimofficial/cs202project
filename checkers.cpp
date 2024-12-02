@@ -25,16 +25,23 @@ Checkers::Checkers() {
 }
 Checkers::~Checkers() {}
 void Checkers::printBoard() {
-  cout << "The board will have coordinates represented by |XY|" << endl;
-  for (int i = 0; i < 8; i++) {
+  //cout << "The board will have coordinates represented by |XY|" << endl;
+  /*for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
       cout << "|" << i << j;
     }
     cout << "|" << endl;
-  }
+  }*/
 
+  //adding column headers
+  cout << "  |";
+  for(int i = 0; i < 8; i++) cout << i << "|";
+  cout << endl;
+
+  //printing board and adding row headers
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
+      if(j == 0) cout << i << " ";
       cout << "|" << Board[i][j];
     }
     cout << "|" << endl;
