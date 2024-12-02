@@ -32,7 +32,9 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 ## Authors 
 
 **Jai Mehta**
+
 *Developer & Project Lead*
+
 [github](https://github.com/mehtajm)
 
 * Hien Vo
