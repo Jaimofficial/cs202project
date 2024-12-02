@@ -1,5 +1,5 @@
-# cs202project
-Project with Hien and Tom
+# CS202 Capstone Project
+**Project with Hien, Tom, and Jai**
 
 Checkers game
 
