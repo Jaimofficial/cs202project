@@ -51,7 +51,7 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 [GitHub](https://github.com/ThomasDonahue01)
 
 ## License
-**This project is licensed under the [MIT License](https://mit-license.org)
+**This project is licensed under the [MIT License](https://mit-license.org)**
 
 Navigate terminal to directory “cs202project”
 
