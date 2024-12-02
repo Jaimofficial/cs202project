@@ -1,0 +1,503 @@
+  |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| |b| |b| |b| |
+3 | | | | | | | | |
+4 | | | | | | | | |
+5 | |r| |r| |r| |r|
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | |b| |b| |
+3 | | | |b| | | | |
+4 | | | | | | | | |
+5 | |r| |r| |r| |r|
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | |b| |b| |
+3 | | | |b| | | | |
+4 | | | | | | |r| |
+5 | |r| |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | | | |b| |
+3 | | | |b| |b| | |
+4 | | | | | | |r| |
+5 | |r| |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | |r| |b| |
+3 | | | |b| | | | |
+4 | | | | | | | | |
+5 | |r| |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | |r| |b| |
+3 | | | | | | | | |
+4 | | |b| | | | | |
+5 | |r| |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |b| |b| |b| |b|
+2 |b| | | |r| |b| |
+3 | | | |r| | | | |
+4 | | | | | | | | |
+5 | | | |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |b| |b| |r| |b| |
+3 | | | |r| | | | |
+4 | | | | | | | | |
+5 | | | |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |b| |b| |b| |b| |
+1 | |r| |b| |b| |b|
+2 |b| | | |r| |b| |
+3 | | | | | | | | |
+4 | | | | | | | | |
+5 | | | |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |b| |b| |r| |b| |
+3 | | | | | | | | |
+4 | | | | | | | | |
+5 | | | |r| |r| | |
+6 |r| |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |b| |b| |r| |b| |
+3 | | | | | | | | |
+4 | | | | | | | | |
+5 | |r| |r| |r| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |b| |b| |r| | | |
+3 | | | | | | | |b|
+4 | | | | | | | | |
+5 | |r| |r| |r| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |b| |b| |r| | | |
+3 | | | | | | | |b|
+4 |r| | | | | | | |
+5 | | | |r| |r| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 | | |b| |r| | | |
+3 | |b| | | | | |b|
+4 |r| | | | | | | |
+5 | | | |r| |r| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 | | |b| |r| | | |
+3 | |b| | | | | |b|
+4 |r| | | | | |r| |
+5 | | | |r| | | | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 | | |b| |r| | | |
+3 | | | | | | | |b|
+4 |r| |b| | | |r| |
+5 | | | |r| | | | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 | | |b| |r| | | |
+3 | |r| | | | | |b|
+4 | | |b| | | |r| |
+5 | | | |r| | | | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 | | |b| |r| | | |
+3 | |r| | | | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| |b| |b|
+2 |r| |b| |r| | | |
+3 | | | | | | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | | | |b| | | |b|
+2 |r| |b| | | | | |
+3 | | | |b| | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | |r| |b| | | |b|
+2 | | |b| | | | | |
+3 | | | |b| | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | |r| |b| | | | |
+2 | | |b| | | |b| |
+3 | | | |b| | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y": The Piece has been Promoted!
+  |0|1|2|3|4|5|6|7|
+0 |R| |b| |b| |b| |
+1 | | | |b| | | | |
+2 | | |b| | | |b| |
+3 | | | |b| | | | |
+4 | | |b| | | | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Invalid. Please try again.
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 |R| |b| |b| |b| |
+1 | | | |b| | | | |
+2 | | |b| | | |b| |
+3 | | | | | | | | |
+4 | | |b| |b| | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| |b| |b| |
+1 | |R| |b| | | | |
+2 | | |b| | | |b| |
+3 | | | | | | | | |
+4 | | |b| |b| | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | |R| |b| |b| | |
+2 | | |b| | | |b| |
+3 | | | | | | | | |
+4 | | |b| |b| | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | |b| |b| | |
+2 | | | | | | |b| |
+3 | | | |R| | | | |
+4 | | |b| |b| | | |
+5 | | | |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+You can make another capture! Continue your turn.
+Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | |b| |b| | |
+2 | | | | | | |b| |
+3 | | | | | | | | |
+4 | | | | |b| | | |
+5 | |R| |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| | |
+2 | | |b| | | |b| |
+3 | | | | | | | | |
+4 | | | | |b| | | |
+5 | |R| |r| |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| | |
+2 | | |b| | | |b| |
+3 | | | | | |r| | |
+4 | | | | | | | | |
+5 | |R| | | |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+You can make another capture! Continue your turn.
+Enter where you want to move your piece in the format "X Y": Invalid move. Please try again.
+  |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| | |
+2 | | |b| | | |b| |
+3 | | | | | |r| | |
+4 | | | | | | | | |
+5 | |R| | | |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+You chose the coordinates 3 5.
+Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| |r|
+2 | | |b| | | | | |
+3 | | | | | | | | |
+4 | | | | | | | | |
+5 | |R| | | |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| |r|
+2 | | | | | | | | |
+3 | | | |b| | | | |
+4 | | | | | | | | |
+5 | |R| | | |b| | |
+6 | | |r| |r| |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| |r|
+2 | | | | | | | | |
+3 | | | |b| | | | |
+4 | | | | | | |r| |
+5 | |R| | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| |r|
+2 | | | | | | | | |
+3 | | | | | | | | |
+4 | | |b| | | |r| |
+5 | |R| | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | |b| | | |b| |
+1 | | | | | |b| |r|
+2 | | | | | | | | |
+3 | | | |R| | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | | | |b| |
+1 | | | |b| |b| |r|
+2 | | | | | | | | |
+3 | | | |R| | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | | | |b| |
+1 | | | |b| |b| |r|
+2 | | |R| | | | | |
+3 | | | | | | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | | | |b| |
+1 | | | |b| | | |r|
+2 | | |R| | | |b| |
+3 | | | | | | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | |R| |b| |
+1 | | | | | | | |r|
+2 | | | | | | |b| |
+3 | | | | | | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | |R| | | |
+1 | | | | | |b| |r|
+2 | | | | | | |b| |
+3 | | | | | | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y": The Piece has been Promoted!
+  |0|1|2|3|4|5|6|7|
+0 | | | | |R| |R| |
+1 | | | | | |b| | |
+2 | | | | | | |b| |
+3 | | | | | | | | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Black's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | |R| |R| |
+1 | | | | | |b| | |
+2 | | | | | | | | |
+3 | | | | | |b| | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+
+Red's turn. 
+Enter the checker you want to move in the format "X Y": Enter where you want to move your piece in the format "X Y":   |0|1|2|3|4|5|6|7|
+0 | | | | | | |R| |
+1 | | | | | | | | |
+2 | | | | | | |R| |
+3 | | | | | |b| | |
+4 | | | | | | |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+You can make another capture! Continue your turn.
+Enter where you want to move your piece in the format "X Y": Red won!
+  |0|1|2|3|4|5|6|7|
+0 | | | | | | |R| |
+1 | | | | | | | | |
+2 | | | | | | | | |
+3 | | | | | | | | |
+4 | | | | |R| |r| |
+5 | | | | | | | | |
+6 | | |r| | | |r| |
+7 | |r| |r| |r| |r|
+Do you want to start a new game? (y/n): 
+Total Wins:
+Red wins:1
+Black wins:0
