@@ -3,7 +3,7 @@ Project with Hien and Tom
 
 Checkers game
 
-How to play:
+HOW TO PLAY:
 
 Navigate terminal to directory “cs202project”
 
