@@ -542,18 +542,29 @@ void Checkers::play() {
                                           // additional captures available
 
     if (hasWon()) {
+      
       printBoard();
       // Prompt to start a new game
       char choice;
-      cout << "Do you want to start a new game? (y/n): ";
-      cin >> choice;
-      if (choice == 'y') {
-        resetBoard();
-        turn = 0;
-        continue;
-      }
-      else {
-        break;
+      while (true) {
+        cout << "Do you want to start a new game? (y/n): ";
+        cin >> choice;
+        choice = tolower(choice); // Convert to lowercase to handle uppercase inputs
+        if (choice == 'y') {
+          resetBoard();
+          turn = 0;
+          break; // exit the input loop and continue game loop
+        }
+        else if (choice == 'n') {
+          // display the total number of wins before exiting
+          cout << "\nTotal Wins:" << endl;
+          cout << "Red wins:" << rWins << endl;
+          cout << "Black wins:" << bWins << endl;
+          return; // exit the play() method (ending the game)
+        }
+        else {
+          cout << "Invalid input. Please enter 'y' for yes or 'n' for no." << endl;
+        }
       }
     }
     turn++; // switch player
