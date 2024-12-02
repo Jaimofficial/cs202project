@@ -16,8 +16,10 @@
 			bool canDoubleJump(int pieceRow, int pieceCol, char redOrBlack);
 			bool hasWon();
 			bool hasAvailableMoves(int x, int y);
+			void resetBoard();
 		private:
-				std::vector< std::vector < char > > Board;
+			std::vector< std::vector < char > > Board;
+			
 	
 	};
 
