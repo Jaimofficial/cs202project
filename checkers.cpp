@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -426,8 +427,13 @@ void Checkers::play() {
     }
     cout << "turn. " << endl;
 
+    //some error checking
     cout << "Enter the checker you want to move in the format \"X Y\": ";
-    cin >> rowPieceToMove >> colPieceToMove;
+    while(!(cin >> rowPieceToMove >> colPieceToMove)) {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      cout << "Not in the format \"X Y\". Try again: ";
+    }
 
     // checks to see if in bounds and if there is a piece at the position the
     // player has entered
@@ -445,9 +451,16 @@ void Checkers::play() {
         false; // bool flag to handle multiple captures
     do {
       piece = player;
+
       // prompt asking the player to enter the coordinates to move
+      //more error checking
       cout << "Enter where you want to move your piece in the format \"X Y\": ";
-      cin >> rowWhereToMove >> colWhereToMove;
+      while(!(cin >> rowWhereToMove >> colWhereToMove)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Not in the format \"X Y\". Try again: ";
+      }
+
       int piecePosition[2] = {rowPieceToMove, colPieceToMove};
       if (Board[rowPieceToMove][colPieceToMove] == 'R' ||
           Board[rowPieceToMove][colPieceToMove] == 'B') {
