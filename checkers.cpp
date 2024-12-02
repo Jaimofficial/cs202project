@@ -229,7 +229,7 @@ bool Checkers::hasAvailableMoves(int x, int y) {
                 return false;
             }
     }
-    else if (tolower(Board[x][y]) == 'b') {
+    else if (tolower(Board[x][y]) == 'b') { 
       char piece = Board[x][y]; // can get either 'B' or 'b'.
       moveLeft[0] = x + 1;
       moveLeft[1] = y - 1;
