@@ -28,3 +28,5 @@ When there is a winner, you will be asked if you want to play another game (y/n)
 If y, repeat from step 5.
 
 If n, the program terminates. 
+
+After this, you can run "make test" to test the gradescripts.
