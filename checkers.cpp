@@ -159,10 +159,10 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
     int targetCol = possibleMoves[i][1];
 
     //I'm commenting this out because isValidMove (shown below) checks for bounds already - Tom
-    //// bound checks
-    //if (!isWithinBounds(targetRow, targetCol)) {
-    //  continue;
-    //}
+    // bound checks
+    if (!isWithinBounds(targetRow, targetCol)) {
+      continue;
+    }
 
     // create arrays to pass to isValidMove
     int pieceToMove[2] = {pieceRow, pieceCol};
