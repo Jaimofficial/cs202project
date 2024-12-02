@@ -33,13 +33,21 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 
 **Jai Mehta**
 
-*Developer & Project Lead*
+*Lead Developer*
 
 [github](https://github.com/mehtajm)
 
-* Hien Vo
-* 
-HOW TO PLAY:
+**Hien Vo**
+
+*Lead Developer*
+
+[GitHub](https://github.com/HienVo22)
+
+**Thomas Donahue**
+
+*Lead Developer*
+
+[GitHub](https://github.com/ThomasDonahue01)
 
 Navigate terminal to directory “cs202project”
 
