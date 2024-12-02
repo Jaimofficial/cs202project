@@ -17,6 +17,7 @@
 			bool hasWon();
 			bool hasAvailableMoves(int x, int y);
 			void resetBoard();
+			void playAutomated();
 		private:
 			std::vector< std::vector < char > > Board;
 			

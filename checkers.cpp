@@ -597,8 +597,19 @@ void Checkers::play() {
     turn++; // switch player
   }
 }
+
+void Checkers::playAutomated() {
+  
+}
+
 int main() {
 
+  //automated will be y if the player wants to play against AI
+  char automated; 
+  cout << "Do you want to play as red against AI (y/n)?: ";
+  cin >> automated;
+
   Checkers check;
-  check.play();
+  if(automated == 'y') check.playAutomated();
+  else check.play();
 }
