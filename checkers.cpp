@@ -7,10 +7,6 @@
 
 using namespace std;
 
-// global variables to keep track of wins
-int rWins = 0;
-int bWins = 0;
-
 Checkers::Checkers() {
   Board.resize(8);
   for (int rows = 0; rows < 8; rows++) {
@@ -60,7 +56,8 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
   if(!isWithinBounds(pieceToMove[0], pieceToMove[1]) || !isWithinBounds(whereToMove[0], whereToMove[1]))
     return false;
 
-	// check to see if there is the piece at pieceToMove location
+  // check to see if there is the piece at pieceToMove location
+
   if ((Board[pieceToMove[0]][pieceToMove[1]]) != redOrBlack)
     return false;
   // checks to see that the black is moving down the board and red is moving up
@@ -79,10 +76,6 @@ bool Checkers::isValidMove(int pieceToMove[], int whereToMove[],
 
   // the move is valid if the the piece is moved one space diagonally
   if (redOrBlack == 'b') {
-    // explanation fo Hein. the line below says the following: for black moving
-    // one space diagonally, the target row should be one more than the piece
-    // row and the target column should be either one more or one less than the
-    // piece row. look at a board to see the logic here
     if (whereToMove[0] == (pieceToMove[0] + 1) &&
         ((whereToMove[1] - 1) == pieceToMove[1] ||
          (whereToMove[1] + 1) == pieceToMove[1]))
@@ -168,7 +161,10 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
     int targetRow = possibleMoves[i][0];
     int targetCol = possibleMoves[i][1];
 
-    
+    // bound checks
+    if (!isWithinBounds(targetRow, targetCol)) {
+      continue;
+    }
     // create arrays to pass to isValidMove
     int pieceToMove[2] = {pieceRow, pieceCol};
     int whereToMove[2] = {targetRow, targetCol};
@@ -184,102 +180,6 @@ bool Checkers::canDoubleJump(int pieceRow, int pieceCol, char redOrBlack) {
   // no more additional capture move
   return false;
 }
-bool Checkers::hasAvailableMoves(int x, int y) {
-  int piecePosition[2] = {x, y};
-  int moveLeft[2];
-  int moveRight[2];
-
-    if (tolower(Board[x][y]) == 'r') {
-      char piece = Board[x][y]; // can get either 'R' or 'r'.
-      moveLeft[0] = x - 1;
-      moveLeft[1] = y - 1;
-      moveRight[0] = x - 1;
-      moveRight[1] = y + 1; // possible movements for r (moving up)
-      if (!(isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) {
-              if (moveLeft[0] >= 0 && moveLeft[1] >= 0 &&
-                  tolower(Board[moveLeft[0]][moveLeft[1]]) == 'b') {
-                  moveLeft[0] = x - 2;
-                  moveLeft[1] = y - 2;
-                if (isValidMove(piecePosition, moveLeft, piece)) return true;
-              }
-              if (moveRight[0] >= 0 && moveRight[1] < 8 &&
-                  tolower(Board[moveRight[0]][moveRight[1]]) == 'b') {
-                moveRight[0] = x - 2;
-                moveRight[1] = y + 2;
-                if (isValidMove(piecePosition, moveRight, piece)) return true;
-              }
-              moveLeft[0] = x + 1;
-              moveLeft[1] = y - 1;
-              moveRight[0] = x + 1;
-              moveRight[1] = y + 1;
-              // need to check promoted movements in the opposite direction
-             if (piece == 'R') { 
-                if ((isValidMove(piecePosition, moveLeft, piece) || //left jump
-                  isValidMove(piecePosition, moveRight, piece))) return true;
-                   if (moveLeft[0] < 8 && moveLeft[1] >= 0 &&
-                        tolower(Board[moveLeft[0]][moveRight[1]]) == 'b') {
-                  moveLeft[0] = x + 2;
-                  moveLeft[1] = y - 2;
-                if (isValidMove(piecePosition, moveLeft, piece)) return true;
-              }
-              if (moveRight[0] < 8 && moveRight[1] < 8 && // right jump
-                  tolower(Board[moveRight[0]][moveRight[1]]) == 'b') {
-                  moveRight[0] = x + 2;
-                  moveRight[1] = y + 2;
-                if (isValidMove(piecePosition, moveRight, piece)) return true;
-              }
-              } 
-                return false;
-            }
-    }
-    else if (tolower(Board[x][y]) == 'b') {
-      char piece = Board[x][y]; // can get either 'B' or 'b'.
-      moveLeft[0] = x + 1;
-      moveLeft[1] = y - 1;
-      moveRight[0] = x + 1;
-      moveRight[1] = y + 1; // possible movements for b (going down)
-      if (!(isValidMove(piecePosition, moveLeft, piece) || 
-            isValidMove(piecePosition, moveRight, piece))) {
-              if (moveLeft[0] < 8 && moveLeft[1] >= 0 && 
-                  tolower(Board[moveLeft[0]][moveRight[1]]) == 'r') { // checks for jumps
-                  moveLeft[0] = x + 2;
-                  moveLeft[1] = y - 2;
-                if (isValidMove(piecePosition, moveLeft, piece)) return true;
-              }
-              if (moveRight[0] < 8 && moveRight[1] < 8 &&
-                  tolower(Board[moveRight[0]][moveRight[1]]) == 'r') { // right jump
-                  moveRight[0] = x + 2;
-                  moveRight[1] = y + 2;
-                if (isValidMove(piecePosition, moveRight, piece)) return true;
-              }
-              moveLeft[0] = x - 1;
-              moveLeft[1] = y - 1;
-              moveRight[0] = x - 1;
-              moveRight[1] = y + 1;
-               if (piece == 'B') { // need to check if the piece is promoted, so have to see
-                                   // other side's possible moves
-                if ((isValidMove(piecePosition, moveLeft, piece) || 
-                  isValidMove(piecePosition, moveRight, piece))) return true;
-                   if (moveLeft[0] >= 0 && moveLeft[1] >= 0 &&
-                      tolower(Board[moveLeft[0]][moveRight[1]]) == 'r') {
-                  moveLeft[0] = x - 2;
-                  moveLeft[1] = y - 2;
-                if (isValidMove(piecePosition, moveLeft, piece)) return true;
-              }
-              if (moveRight[0] >= 0 && moveRight[1] < 8 &&
-                  tolower(Board[moveRight[0]][moveRight[1]]) == 'r') {
-                  moveRight[0] = x - 2;
-                  moveRight[1] = y + 2;
-                if (isValidMove(piecePosition, moveRight, piece)) return true;
-              }
-              } 
-                return false;
-            }
-    }
-    else return false; // for space on board
-    return true;
-}
 bool Checkers::hasWon() {
   int bCount = 0;
   int rCount = 0;
@@ -290,18 +190,9 @@ bool Checkers::hasWon() {
   if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
-      rWins++;
-      bWins++;
       return true;
     }
-    else if (rCount > bCount) {
-      rWins++;
-      cout << "Red won!" << endl;
-      return true;
-    }
-    else if (bCount > rCount) {
-      bWins++;
-      cout << "Black won!" << endl;
+      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
     }
   }
@@ -348,47 +239,14 @@ bool Checkers::hasWon() {
     if (rCount == 0 || bCount == 0) {
     if (rCount == 0 && bCount == 0) {
       cout << "Tie." << endl;
-      rWins++;
-      bWins++;
       return true;
     }
-    else if (rCount > bCount) {
-      rWins++;
-      cout << "Red won!" << endl;
+      cout << ((rCount < bCount) ? "Black " : "Red ") << "won!" << endl;
       return true;
-    }
-    else if (bCount > rCount) {
-      bWins++;
-      cout << "Black won!" << endl;
-      return true;
-    }
   }
-}
+  }
   return false;
 }
-void Checkers::resetBoard() {
-  // clearing the board
-  for (int i = 0; i < 8; i++) {
-    fill(Board[i].begin(), Board[i].end(), ' ');
-  }
-  // Place black pieces
-  for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 8; j++) {
-          if ((i + j) % 2 == 1) {
-              Board[i][j] = 'b';
-          }
-      }
-  }
-  // Place red pieces
-  for (int i = 5; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-          if ((i + j) % 2 == 1) {
-              Board[i][j] = 'r';
-          }
-      }
-  }
-}
-
 void Checkers::play() {
 
   int turn = 0;
@@ -534,32 +392,11 @@ void Checkers::play() {
       additionalCaptureAvailable = false; // no further captures
     } while (additionalCaptureAvailable); // continue move if there is
                                           // additional captures available
-
     if (hasWon()) {
-      
+      string person = ((turn % 2 == 0) ? "Red " : "Black ");
+      cout << person << "won! Do you want to play another game? " << endl;
       printBoard();
-      // Prompt to start a new game
-      char choice;
-      while (true) {
-        cout << "Do you want to start a new game? (y/n): ";
-        cin >> choice;
-        choice = tolower(choice); // Convert to lowercase to handle uppercase inputs
-        if (choice == 'y') {
-          resetBoard();
-          turn = 0;
-          break; // exit the input loop and continue game loop
-        }
-        else if (choice == 'n') {
-          // display the total number of wins before exiting
-          cout << "\nTotal Wins:" << endl;
-          cout << "Red wins:" << rWins << endl;
-          cout << "Black wins:" << bWins << endl;
-          return; // exit the play() method (ending the game)
-        }
-        else {
-          cout << "Invalid input. Please enter 'y' for yes or 'n' for no." << endl;
-        }
-      }
+      return;
     }
     turn++; // switch player
   }
