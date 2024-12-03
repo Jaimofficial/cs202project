@@ -784,7 +784,7 @@ int main() {
 
   //automated will be y if the player wants to play against AI
   char automated; 
-  cout << "Do you want to play as red against AI (y/n)?: ";
+  cout << "Do you want to play as red against an automated player (y/n)?: ";
   cin >> automated;
 
   Checkers check;
