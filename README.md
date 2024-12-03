@@ -1,6 +1,6 @@
 # Checkers Game in C++
 
-## Table of Contens
+## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
