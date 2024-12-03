@@ -78,8 +78,3 @@ If not:
 **This project is licensed under the [MIT License](https://mit-license.org)**
 
 
-11. If y, repeat from step 6.
-
-12. If n, the program terminates. 
-
-13. After this, you can run "make test" to test the gradescripts.
