@@ -1,3 +1,8 @@
+//CS202
+//Dr. Emrich
+//Hien Vo, Thomas Donahue, Jai Mehta
+//This program is checkers. See the readme for information on how to run this program.
+
 #include "checkers.h"
 #include <cctype>
 #include <iostream>
