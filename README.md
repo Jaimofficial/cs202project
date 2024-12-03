@@ -5,8 +5,6 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Gameplay](#gameplay)
-- [Contributing](#contributing)
 - [Authors](#authors)
 - [License](#license)
 
@@ -53,6 +51,7 @@ If not:
 
 
 ## Gameplay
+Here is the link to the [Checkers rules](https://en.wikipedia.org/wiki/Checkers)
 
 ## Authors 
 
