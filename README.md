@@ -53,28 +53,32 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 ## License
 **This project is licensed under the [MIT License](https://mit-license.org)**
 
-Navigate terminal to directory “cs202project”
+1. Navigate terminal to directory “cs202project”
 
-Run “rm ./checkers” 
+2. Run “rm ./checkers” 
 
-Run “make”
+3. Run “make”
 
-Run “./checkers”
+4. Run “./checkers”
 
 The rest is fairly self explanatory:
 
-Black moves first, enter the checker you want to move (“X Y”) where X is the row and Y is the column. X and Y should be integers between 0 and 7 inclusive.
+5. Enter if you want to play against an automated player. 
 
-Enter where you want to move the piece (“X Y”).
+If not:
 
-Red’s turn. Do the last two steps but with a red piece. 
+6. Black moves first, enter the checker you want to move (“X Y”) where X is the row and Y is the column. X and Y should be integers between 0 and 7 inclusive.
 
-Continue until there is a winner. 
+7. Enter where you want to move the piece (“X Y”).
 
-When there is a winner, you will be asked if you want to play another game (y/n).
+8. Red’s turn. Do the last two steps but with a red piece. 
 
-If y, repeat from step 5.
+9. Continue until there is a winner. 
 
-If n, the program terminates. 
+10. When there is a winner, you will be asked if you want to play another game (y/n).
 
-After this, you can run "make test" to test the gradescripts.
+11. If y, repeat from step 6.
+
+12. If n, the program terminates. 
+
+13. After this, you can run "make test" to test the gradescripts.
