@@ -30,11 +30,10 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 You can run the program by doing:
 1. Navigate terminal to directory “cs202project”
 
-2. Run ```bash
-         make```
+2. Run ```make```
 
 
-3. Run ```bash ./checkers```
+3. Run ```./checkers```
 
 The rest is fairly self explanatory:
 
