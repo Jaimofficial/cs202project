@@ -60,7 +60,7 @@ If not:
 
 *Lead Developer*
 
-[github](https://github.com/mehtajm)
+[GitHub](https://github.com/mehtajm)
 
 **Hien Vo**
 
