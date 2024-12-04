@@ -11,7 +11,6 @@ all:    $(BIN)
 
 $(BIN):    $(SRC)
 	$(CXX) $(CXXFLAGS) -o $@ $^
-
 clean:
 	rm -f $(BIN)
 format:
@@ -24,5 +23,7 @@ test:	all
 	@if [ ! -s diff_output-1.txt ]; then echo "Gradescript 2 passed!"; rm diff_output-1.txt; fi
 	@diff -y --suppress-common-lines <(./checkers < inputs/fullgame-tom.txt) outputs/fullgame-tom.txt > diff_output-2.txt || (echo "Gradescript 3 failed! Check diff_output-2.txt for details."; exit 1)
 	@if [ ! -s diff_output-1.txt ]; then echo "Gradescript 3 passed!"; rm diff_output-2.txt; fi
-	@echo "Testing done."
-	
+	@if [ -d "checkers.dSYM" ]; then \
+	    rm -rf checkers.dSYM; \
+	fi
+	@echo "Testing done."	
