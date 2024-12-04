@@ -22,7 +22,7 @@ Welcome to the **Checkers Game in C++**, a console-based application developed a
 ### Steps
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/checkers-game-cpp.git
+   git clone https://github.com/mehtajm/cs202project.git
    
 ## Usage
 You can run the program by doing:
