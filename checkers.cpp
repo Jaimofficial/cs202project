@@ -374,7 +374,7 @@ void Checkers::play() {
     }
     cout << "turn. " << endl;
 
-    //some error checking
+    //some error checking. used code from https://www.geeksforgeeks.org/output-error-when-input-isnt-a-number-in-cpp/ -Tom
     cout << "Enter the checker you want to move in the format \"X Y\": ";
     while(!(cin >> rowPieceToMove >> colPieceToMove)) {
       cin.clear();
@@ -400,7 +400,7 @@ void Checkers::play() {
       piece = player;
 
       // prompt asking the player to enter the coordinates to move
-      //more error checking
+      //more error checking. used code from https://www.geeksforgeeks.org/output-error-when-input-isnt-a-number-in-cpp/ -Tom
       cout << "Enter where you want to move your piece in the format \"X Y\": ";
       while(!(cin >> rowWhereToMove >> colWhereToMove)) {
         cin.clear();
@@ -490,10 +490,12 @@ void Checkers::play() {
       colPieceToMove = movePosition[1];
       if ((rowPieceToMove == 7 && piece == 'b') ||
           (rowPieceToMove == 0 && piece == 'r')) {
-        Board[rowPieceToMove][colPieceToMove] -= 32;
-        piece =
-            Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
-        cout << "The Piece has been Promoted!" << endl;
+        if(Board[rowPieceToMove][colPieceToMove] != 'B' && Board[rowPieceToMove][colPieceToMove] != 'R') {
+          Board[rowPieceToMove][colPieceToMove] -= 32;
+          piece =
+              Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
+          cout << "The Piece has been Promoted!" << endl;
+        }
       }
       // checks if a capture was made
       if (abs(movePosition[0] - piecePosition[0]) == 2) {
@@ -562,6 +564,7 @@ void Checkers::playAutomated() {
     //automated part
     if(player == 'b') {
         //find a black piece that has an/multiple available moves
+        // used code from https://stackoverflow.com/questions/4926622/how-to-generate-different-random-numbers-in-a-loop-in-c -Tom
         srand(time(NULL));
         int pieceToMoveRow, pieceToMoveColumn; 
         while(true) {
@@ -572,6 +575,7 @@ void Checkers::playAutomated() {
             if(hasAvailableMoves(pieceToMoveRow, pieceToMoveColumn)) break;
           }
         }
+
         //find a move that the chosen piece can make and make that move
         //try up 2 and left 2
         int rowPieceToMove1, colPieceToMove1;
@@ -645,13 +649,15 @@ void Checkers::playAutomated() {
 
         // updating the piece position to the new position
         if(rowPieceToMove1 == 7) {
-          Board[rowPieceToMove1][colPieceToMove1] -= 32;
-          cout << "The Piece has been Promoted!" << endl;
+          if(Board[rowPieceToMove][colPieceToMove] != 'B') {
+            Board[rowPieceToMove1][colPieceToMove1] -= 32;
+            cout << "The Piece has been Promoted!" << endl;
+          }
         }
     }
     else if(player == 'r') {
 
-      //some error checking
+      //some error checking. used code from https://www.geeksforgeeks.org/output-error-when-input-isnt-a-number-in-cpp/ -Tom
       cout << "Enter the checker you want to move in the format \"X Y\": ";
       while(!(cin >> rowPieceToMove >> colPieceToMove)) {
         cin.clear();
@@ -677,7 +683,7 @@ void Checkers::playAutomated() {
         piece = player;
 
         // prompt asking the player to enter the coordinates to move
-        //more error checking
+        //more error checking. used code from https://www.geeksforgeeks.org/output-error-when-input-isnt-a-number-in-cpp/ -Tom
         cout << "Enter where you want to move your piece in the format \"X Y\": ";
         while(!(cin >> rowWhereToMove >> colWhereToMove)) {
           cin.clear();
@@ -737,9 +743,11 @@ void Checkers::playAutomated() {
         rowPieceToMove = movePosition[0];
         colPieceToMove = movePosition[1];
         if (rowPieceToMove == 0) {
-          Board[rowPieceToMove][colPieceToMove] -= 32;
-          piece = Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
-          cout << "The Piece has been Promoted!" << endl;
+          if(Board[rowPieceToMove][colPieceToMove] != 'R') {
+            Board[rowPieceToMove][colPieceToMove] -= 32;
+            piece = Board[rowPieceToMove][colPieceToMove]; // updates if piece promotes.
+            cout << "The Piece has been Promoted!" << endl;
+          }
         }
         // checks if a capture was made
         if (abs(movePosition[0] - piecePosition[0]) == 2) {
